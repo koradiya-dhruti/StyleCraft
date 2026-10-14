@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Wishlist
+        </span>
+    </div>
+</div>
+
+<!-- Wishlist -->
+<section class="bg0 p-t-75 p-b-85">
+    <div class="container">
+
+        <div class="row" id="wishlistProducts">
+        </div>
+
+        <div id="emptyWishlist" class="text-center p-t-50 p-b-50" style="display:none;">
+            <h4 class="mtext-105 cl2 p-b-15">
+                Your wishlist is empty
+            </h4>
+            <p class="stext-102 cl6 p-b-25">
+                You have not added any products to your wishlist yet.
+            </p>
+            <a href="/product" class="flex-c-m stext-101 cl0 size-101 bg3 bor1 hov-btn3 p-lr-15 trans-04" style="display:inline-flex;">
+                Continue Shopping
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+        getWishlist();
+
+    });
+
+    function getWishlist() {
+        let token = localStorage.getItem("token");
+
+        if (!token) {
+            $("#wishlistProducts").hide();
+            $("#emptyWishlist").show();
+            $("#emptyWishlist h4").text("Please login to view your wishlist.");
+            return;
+        }
+
+        $.ajax({
+
+            url: "/getWishlist/",
+            type: "GET",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            success: function (response) {
+                console.log("Wishlist Response:", response);
+
+                let wishlist = response.wishlist || [];
+
+                $("#wishlistProducts").empty();
+
+                if (wishlist.length === 0) {
+                    $("#wishlistProducts").hide();
+                    $("#emptyWishlist").show();
+                    return;
+                }
+
+                $("#wishlistProducts").show();
+                $("#emptyWishlist").hide();
+
+                for (let i = 0; i < wishlist.length; i++) {
+
+                    let product = wishlist[i];
+
+                    let image = product.image;
+
+                    if (!image) {
+                        image = "{% static 'images/item-cart-01.jpg' %}";
+                    }
+
+                    let price = parseFloat(product.price) || 0;
+
+                    let html = `
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35">
+                            <div class="block2">
+                                <div class="block2-pic hov-img0">
+                                    <img src="${image}" alt="${product.productName}" width="100" height="375">
+
+                                    <button type="button" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 remove-wishlist" data-product-id="${product.productId}">
+                                        Remove
+                                    </button>
+                                </div>
+
+                                <div class="block2-txt flex-w flex-t p-t-14">
+                                    <div class="block2-txt-child1 flex-col-l">
+
+                                        <a href="/product-detail/${product.productId}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                            ${product.productName}
+                                        </a>
+
+                                        <span class="stext-105 cl3">
+                                            ₹${price.toFixed(2)}
+                                        </span>
+                                    </div>
+
+                                    <div class="block2-txt-child2 flex-r p-t-3">
+                                        <button type="button" class="btn-remove-wishlist" data-product-id="${product.productId}" style="border:none;background:none;">
+                                            <i class="zmdi zmdi-delete" style="font-size:20px;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    $("#wishlistProducts").append(html);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+
+                $("#wishlistProducts").hide();
+                $("#emptyWishlist").show();
+            }
+        });
+    }
+
+    // REMOVE WISHLIST
+    $(document).on("click", ".remove-wishlist, .btn-remove-wishlist", function () {
+
+        let productId = $(this).data("product-id");
+        let token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("Please login first.");
+            window.location.href = "/register";
+            return;
+        }
+
+        $.ajax({
+            url: "/wishlistApi/",
+            type: "POST",
+
+            data: {
+                productId: productId
+            },
+
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            success: function (response) {
+                getWishlist();
+            }
+        });
+    });
+
+</script>
+{% endblock content %}

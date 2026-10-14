@@ -1,0 +1,3634 @@
+{% extends "base.html" %}
+{% comment %} {% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <a href="/shoping-cart" class="stext-109 cl8 hov-cl1 trans-04">
+            Shoping Cart
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Checkout
+        </span>
+    </div>
+</div>
+
+<section class="bg0 p-t-40 p-b-85">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-7 col-xl-7 m-lr-auto m-b-50">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-b-30 p-lr-15-sm">
+                    <div class="flex-w flex-sb-m p-b-20">
+                        <h4 class="mtext-109 cl2 p-b-15">Delievry Address</h4>
+                        <button type="button" id="addAddressBtn" class="flex-c-m stext-101 cl0 size-111 bg3 bor14 hov-btn3 p-lr-15 trans-04">
+                            + Add Address
+                        </button>
+                    </div>
+
+                    <div id="addressList">
+                        <div class="txt-center p-t-30 p-b-30">
+                            <span class="stexr-111 cl6"></span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 p-lr-15-sm">
+                    <h4 class="mtext-109 cl2 p-b-30">Payment Method</h4>
+                    <div class="payment-method">
+                        <label class="flex-w flex-m bor8 p-all-15 pointer">
+                            <input type="radio" name="paymentMethod" value="cod" class="m-r-15 payment-radio" checked>
+                            <span class="stext-110 cl2">Cash on Delivery</span>
+                        </label>
+
+                        <label class="flex-w flex-m bor8 p-all-15 pointer">
+                            <input type="radio" name="paymentMethod" value="online" class="m-r-15 payment-radio">
+                            <span class="stext-110 cl2">Online Payment</span>
+                        </label>
+
+                        <label class="flex-w flex-m bor8 p-all-15 pointer">
+                            <input type="radio" name="paymentMethod" value="card" class="m-r-15 payment-radio">
+                            <span class="stext-110 cl2">Card</span>
+                        </label>
+
+                    </div>
+
+                    <div id="cardDetails" style="display:none;" class="p-t-25">
+                        <h5 class="mtext-106 cl2 p-b-20">Card Details</h5>
+
+                        <div class="p-b-15">
+                            <label class="stext-110 cl2">Card Holder Name</label>
+                            <input type="text" id="cardHolderName" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Enter card holder name">
+                        </div>
+
+                        <div class="p-b-15">
+                            <label class="stext-110 cl2">Card Number</label>
+                            <input type="text" id="cardNumber" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Enter card number" maxlength="16" inputmode="numeric">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 p-b-15">
+                                <label class="stext-110 cl2">Expiry Date</label>
+                                <input type="text" id="cardExpireDate" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="MM/YY" maxlength="5" inputmode="numeric">
+                            </div>
+
+                            <div class="col-md-6 p-b-15">
+                                <label class="stext-110 cl2">CVV</label>
+                                <input type="password" id="cardCvv" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="CVV" maxlength="3" inputmode="numeric">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-10 col-lg-5 col-xl-5 m-lr-auto m-b-50">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 p-lr-15-sm">
+                    <h4 class="mtext-109 cl2 p-b-30">Order Summary</h4>
+
+                    <div id="checkoutCartItems">
+                        <div class="txt-center p-t-30 p-b-30">
+                            <span class="stext-111 cl6"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-t bor12 p-t-20 p-b-13">
+                        <div class="size-208">
+                            <span class="stext-110 cl2">Subtotal :</span>
+                        </div>
+
+                        <div class="size-209">
+                            <span id="checkoutSubtotal" class="mtext-110 cl2">&#8377;0</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-t bor12 p-t-15 p-b-15">
+                        <div class="size-208">
+                            <span class="stext-110 cl2">Shipping :</span>
+                        </div>
+
+                        <div class="size-209">
+                            <span id="checkoutShipping" class="mtext-110 cl2">&#8377;0</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-t p-t-27 p-b-20">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">Total :</span>
+                        </div>
+
+                        <div class="size-209 p-t-1">
+                            <span id="checkoutTotal" class="mtext-110 cl2">&#8377;0</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="placeOrderBtn" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 tran-04 pointer w-full">
+                        Confirm Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="addressModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999;">
+    <div style="width:90%; max-width:600px; background:white; margin:50px auto; padding:30px; max-height:90vh; overflow-y:auto;">
+        <div class="flex-w flex-sb-m p-b-25">
+            <h4 class="mtext-109 cl2">Add New Address</h4>
+            <button type="button" id="closeAddressModal" class="fs-20 cl2">&#10006;</button>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 p-b-15">
+                <label class="stext-110 cl2">Full Name</label>
+                <input type="text" id="addressFullName" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Full Name" Required>
+            </div>
+
+            <div class="col-md-3 p-b-15">
+                <label class="stext-110 cl2">Dial Code</label>
+                <input type="text" id="addressDialCode" value="+91" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" Required>
+            </div>
+
+            <div class="col-md-3 p-b-15">
+                <label class="stext-110 cl2">Phone</label>
+                <input type="text" id="addressPhone" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Phone" Required>
+            </div>
+
+            <div class="col-md-12 p-b-15">
+                <label class="stext-110 cl2">Address Line 1</label>
+                <input type="text" id="addressLine1" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="House" Required>
+            </div>
+
+            <div class="col-md-12 p-b-15">
+                <label class="stext-110 cl2">Address Line 2</label>
+                <input type="text" id="addressLine2" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Area" Required>
+            </div>
+
+            <div class="col-md-6 p-b-15">
+                <label class="stext-110 cl2">Country</label>
+                <select
+                    id="addressCountry"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full">
+
+                    <option value="">
+                        Select Country
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6 p-b-15">
+                <label class="stext-110 cl2">State</label>
+                <select
+                    id="addressState"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    disabled>
+
+                    <option value="">
+                        Select State
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6 p-b-15">
+                <label class="stext-110 cl2">City</label>
+                <select
+                    id="addressCity"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    disabled>
+
+                    <option value="">
+                        Select City
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6 p-b-15">
+                <label class="stext-110 cl2">Area</label>
+                <select
+                    id="addressArea"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    disabled>
+
+                    <option value="">
+                        Select Area
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="col-md-6 p-b-15">
+                <label class="stext-110 cl2">Postal code</label>
+                <input type="text" id="addressPostalCode" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Postal Code" Required>
+            </div>
+
+            <div class="col-md-12 p-b-15">
+                <label class="stext-110 cl2">Landmark</label>
+                <input type="text" id="addressLandmark" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full" placeholder="Landmark" Required>
+            </div>
+
+            <div class="col-md-12 p-b-20">
+                <label class="stext-110 cl2">Address Type</label>
+
+                <select id="addressType" class="size-111 bor8 stext-111 cl2 p-lr-15 w-full">
+                    <option value="1">Home</option>
+                    <option value="2">Work</option>
+                    <option value="3">Other</option>
+                </select>
+            </div>
+            
+        </div>
+
+        <button type="button" id="saveAddressBtn" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-full">
+            Save Address
+        </button>
+    </div>
+</div>
+
+
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        loadAddresses();
+        loadCart();
+        loadCountries();
+    });
+
+    function getToken(){
+        return localStorage.getItem("token");
+    }
+
+    function loadCountries() {
+
+        $.ajax({
+
+            url: "/getCountries/",
+
+            type: "GET",
+
+            success: function(response) {
+
+                let countries = response.countries || response.country || [];
+
+                $("#addressCountry").empty();
+
+                $("#addressCountry").append(`
+                    <option value="">
+                        Select Country
+                    </option>
+                `);
+
+
+                $.each(countries, function(index, country) {
+
+                    $("#addressCountry").append(`
+
+                        <option value="${country.countryId}">
+                            ${country.countryName}
+                        </option>
+
+                    `);
+
+                });
+
+            },
+
+            error: function(xhr) {
+
+                console.log("Country Error:", xhr.responseText);
+
+            }
+
+        });
+
+    }
+
+    (document).on("change", "#addressCountry", function() {
+
+        let countryId = $(this).val();
+
+
+        $("#addressState").empty();
+
+        $("#addressCity").empty();
+
+        $("#addressArea").empty();
+
+
+        $("#addressState").append(`
+            <option value="">
+                Select State
+            </option>
+        `);
+
+        $("#addressCity").append(`
+            <option value="">
+                Select City
+            </option>
+        `);
+
+        $("#addressArea").append(`
+            <option value="">
+                Select Area
+            </option>
+        `);
+
+
+        $("#addressState").prop("disabled", true);
+
+        $("#addressCity").prop("disabled", true);
+
+        $("#addressArea").prop("disabled", true);
+
+
+        if (!countryId) {
+
+            return;
+
+        }
+
+
+        $.ajax({
+
+            url: "/getStates/",
+
+            type: "GET",
+
+            data: {
+                countryId: countryId
+            },
+
+            success: function(response) {
+
+                let states = response.states || response.state || [];
+
+                $.each(states, function(index, state) {
+
+                    $("#addressState").append(`
+
+                        <option value="${state.stateId}">
+                            ${state.stateName}
+                        </option>
+
+                    `);
+
+                });
+
+
+                $("#addressState").prop("disabled", false);
+
+            },
+
+            error: function(xhr) {
+
+                console.log("State Error:", xhr.responseText);
+
+            }
+
+        });
+
+    });
+
+    $(document).on("change", "#addressState", function() {
+
+        let stateId = $(this).val();
+
+
+        $("#addressCity").empty();
+
+        $("#addressArea").empty();
+
+
+        $("#addressCity").append(`
+            <option value="">
+                Select City
+            </option>
+        `);
+
+        $("#addressArea").append(`
+            <option value="">
+                Select Area
+            </option>
+        `);
+
+
+        $("#addressCity").prop("disabled", true);
+
+        $("#addressArea").prop("disabled", true);
+
+
+        if (!stateId) {
+
+            return;
+
+        }
+
+
+        $.ajax({
+
+            url: "/getCities/",
+
+            type: "GET",
+
+            data: {
+                stateId: stateId
+            },
+
+            success: function(response) {
+
+                let cities = response.cities || response.city || [];
+
+                $.each(cities, function(index, city) {
+
+                    $("#addressCity").append(`
+
+                        <option value="${city.cityId}">
+                            ${city.cityName}
+                        </option>
+
+                    `);
+
+                });
+
+
+                $("#addressCity").prop("disabled", false);
+
+            },
+
+            error: function(xhr) {
+
+                console.log("City Error:", xhr.responseText);
+
+            }
+
+        });
+
+    });
+
+    $(document).on("change", "#addressCity", function() {
+
+        let cityId = $(this).val();
+
+
+        $("#addressArea").empty();
+
+        $("#addressArea").append(`
+            <option value="">
+                Select Area
+            </option>
+        `);
+
+
+        $("#addressArea").prop("disabled", true);
+
+
+        if (!cityId) {
+
+            return;
+
+        }
+
+
+        $.ajax({
+
+            url: "/getAreas/",
+
+            type: "GET",
+
+            data: {
+                cityId: cityId
+            },
+
+            success: function(response) {
+
+                let areas = response.areas || response.area || [];
+
+                $.each(areas, function(index, area) {
+
+                    $("#addressArea").append(`
+
+                        <option value="${area.areaId}">
+                            ${area.areaName}
+                        </option>
+
+                    `);
+
+                });
+
+
+                $("#addressArea").prop("disabled", false);
+
+            },
+
+            error: function(xhr) {
+
+                console.log("Area Error:", xhr.responseText);
+
+            }
+
+        });
+
+    });
+
+
+
+    function loadAddresses(){
+        let token = getToken();
+
+        if(!token) {
+            $("#addressList").html(`
+                <div class="txt-center p-t-30 p-b-30">
+                    <span class="stext-111 cl6">Please login to continue.</span>
+                </div>`
+            );
+            return;
+        }
+
+        $.ajax({
+
+            url:"/getAddresses/",
+            type: "GET",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            success: function(response) {
+                $("#addressList").empty();
+
+                let addresses = response.address;
+
+                if(addresses.length === 0) {
+                    $("#addressList").html(`
+                        <div class="txt-center p-t-15 p-b-15">
+                            <span class="stext-111 cl6">No saved address found.</span>
+                            <br>
+                        </div>`
+                    );
+                    return;
+                }
+
+                $.each(addresses, function(index, address) {
+                    let addressText = address.addressLine1;
+
+                    if(address.addressLine2) {
+                        addressText += ", " + address.addressLine2;
+                    }
+
+                    addressText += ", " +
+                        (address.city || "") +
+                        ", " +
+                        (address.state || "") +
+                        ", " +
+                        (address.country || "") +
+                        " - " +
+                        (address.postalCode || "");
+
+                    $("#addressList").append(`
+                        <label class="bor8 p-all-20 m-b-15 pointer" style="display:block;">
+                            <div class="flex-w flex-m">
+                                <input type="radio" name="selectedAddress" value="${address.id}" class="m-r-15 address-radio">
+                                <div>
+                                    <div class="flex-w flex-m">
+                                        <strong class="mtext-106 cl2">${address.addresstype}</strong>
+                                        <span class="stext-111 cl6 m-l-10">${address.fullName}</span>                                    </div>
+                                    <p class="stext-111 cl6 p-t-8">${addressText}</p>
+                                    <p class="stext-111 cl6 p-t-5">${address.dialCode} ${address.phoneNumber}</p>
+                                </div>
+                            </div>
+                        </label>`
+                    );
+                });
+                $(".address-radio:first").prop("checked", true);
+
+                let firstAddressId = $(".address-radio:first").val();
+
+
+                if (firstAddressId) {
+
+                    calculateShipping(firstAddressId);
+
+                }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+                $("#addressList").html(`
+                    <div class="txt-center p-t-30 p-b-30">
+                        <span class="stext-111 cl6">Unable to load adresses.</span>
+                    </div>`
+                );
+            }
+        });
+    }
+
+    $(document).on(
+        "change",
+        "input[name='selectedAddress']",
+        function() {
+
+            let addressId = $(this).val();
+
+            calculateShipping(addressId);
+
+        }
+    );
+
+    function calculateShipping(addressId) {
+
+        let token = getToken();
+
+        if (!token) {
+            return;
+        }
+
+        $("#checkoutShipping").text("Calculating...");
+
+        $.ajax({
+
+            url: "/calculateShipping/",
+            type: "POST",
+
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            data: {
+                addressId: addressId
+            },
+
+            success: function(response) {
+
+                // =========================
+                // STORE PICKUP LOCATION
+                // =========================
+
+                let storeStateId = 1;
+                let storeCityId = 1;
+                let storeAreaId = 1;
+
+
+                // =========================
+                // CUSTOMER LOCATION
+                // =========================
+
+                let customerStateId = response.stateId;
+                let customerCityId = response.cityId;
+                let customerAreaId = response.areaId;
+
+
+                // =========================
+                // SHIPPING CONDITION
+                // =========================
+
+                let shipping = 0;
+
+                if (storeAreaId == customerAreaId) {
+
+                    shipping = 0;
+
+                }
+                else if (storeCityId == customerCityId) {
+
+                    shipping = 50;
+
+                }
+                else if (storeStateId == customerStateId) {
+
+                    shipping = 100;
+
+                }
+                else {
+
+                    shipping = 200;
+
+                }
+
+
+                // =========================
+                // SUBTOTAL
+                // =========================
+
+                let subtotal =
+                    parseFloat(
+                        $("#checkoutSubtotal")
+                        .text()
+                        .replace("₹", "")
+                        .replace(",", "")
+                    ) || 0;
+
+
+                // =========================
+                // TOTAL
+                // =========================
+
+                let finalTotal = subtotal + shipping;
+
+
+                // =========================
+                // SHOW SHIPPING
+                // =========================
+
+                if (shipping == 0) {
+
+                    $("#checkoutShipping").text("Free");
+
+                }
+                else {
+
+                    $("#checkoutShipping").text(
+                        "₹" + shipping.toFixed(2)
+                    );
+
+                }
+
+
+                // =========================
+                // SHOW TOTAL
+                // =========================
+
+                $("#checkoutTotal").text(
+                    "₹" + finalTotal.toFixed(2)
+                );
+
+            },
+
+            error: function(xhr) {
+
+                console.log(
+                    "Shipping Error:",
+                    xhr.responseText
+                );
+
+                $("#checkoutShipping").text(
+                    "Unable to calculate"
+                );
+
+            }
+
+        });
+    }
+    
+    function loadCart() {
+        let token = getToken();
+
+        if (!token) {
+            $("#checkoutCartItems").html(`
+                <div class="txt-center p-t-30 p-b-30">
+                    <span class="stext-111 cl6">
+                        Please login to continue.
+                    </span>
+                </div>
+            `);
+            return;
+        }
+
+        $.ajax({
+
+            url: "/getCart/",
+            type: "GET",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            success: function(response) {
+
+                let cartItems = response.cartItem || [];
+                $("#checkoutCartItems").empty();
+
+                if (cartItems.length === 0) {
+                    $("#checkoutCartItems").html(`
+                        <div class="txt-center p-t-30 p-b-30">
+                            <h5 class="mtext-105 cl2">
+                                Your cart is empty
+                            </h5>
+
+                            <a href="/product/" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 tran-04 m-t-15">
+                                Continue Shopping
+                            </a>
+                        </div>
+                    `);
+
+                    $("#checkoutSubtotal").text("₹0.00");
+                    $("#checkoutShipping").text("Free");
+                    $("#checkoutTotal").text("₹0.00");
+
+                    $("#placeOrderBtn").prop("disabled", false);
+                    return;
+                }
+
+                $("#placeOrderBtn").prop("disabled", false);
+                let subtotal = 0;
+
+                $.each(cartItems, function(index, item) {
+                    let price = parseFloat(item.price) || 0;
+                    let quantity = parseInt(item.quantity) || 1;
+                    let total = parseFloat(item.total) || 0;
+                    subtotal += total;
+
+                    $("#checkoutCartItems").append(`
+                        <div class="flex-w flex-t p-b-20">
+                            <!-- Product Image -->
+                            <div class="how-itemcart1 m-r-15" style="width:65px; height:65px;">
+                                <img src="${item.image || '/static/images/no-image.jpg'}" alt="${item.productName}" style="width:65px; height:65px; object-fit:cover;">
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="flex-col">
+                                <span class="stext-110 cl2">
+                                    ${item.productName}
+                                </span>
+
+                                <span class="stext-111 cl6 p-t-3">
+                                    ${item.color ? "Color: " + item.color : ""}
+                                    ${item.size ? " | Size: " + item.size : ""}
+                                </span>
+
+                                <span class="stext-111 cl6 p-t-3">
+                                    ₹${price.toFixed(2)} × ${quantity}
+                                </span>
+
+                                <span class="stext-110 cl2 p-t-3">
+                                    ₹${total.toFixed(2)}
+                                </span>
+                            </div>
+                        </div>
+                    `);
+                });
+
+                //let shipping = 0;
+                //let finalTotal = subtotal + shipping;
+
+                $("#checkoutSubtotal").text("₹" + subtotal.toFixed(2));
+                let selectedAddress =
+                    $("input[name='selectedAddress']:checked").val();
+
+
+                if (selectedAddress) {
+
+                    calculateShipping(selectedAddress);
+
+                }
+                else {
+
+                    $("#checkoutShipping").text(
+                        "Select address"
+                    );
+
+                    $("#checkoutTotal").text(
+                        "₹" + subtotal.toFixed(2)
+                    );
+
+                }
+            },
+
+            error: function(xhr) {
+                console.log("Cart Error:", xhr.responseText);
+
+                $("#checkoutCartItems").html(`
+                    <div class="txt-center p-t-30 p-b-30">
+                        <span class="stext-111 cl6">
+                            Cart is empty.
+                        </span>
+                    </div>
+                `);
+            }
+        });
+    }
+
+    $("#addAddressBtn").click(function() {
+        $("#addressModal").fadeIn();
+    });
+
+    $("#closeAddressModal").click(function() {
+        $("#addressModal").fadeOut();
+    });
+
+    $("#saveAddressBtn").click(function() {
+        let token = getToken();
+
+        let fullName = $("#addressFullName").val();
+        let dialCode = $("#addressDialCode").val();
+        let phoneNumber = $("#addressPhone").val();
+        let addressLine1 = $("#addressLine1").val();
+        let addressLine2 = $("#addressLine2").val();
+        let countryId = $("#addressCountry").val();
+        let stateId = $("#addressState").val();
+        let cityId = $("#addressCity").val();
+        let areaId = $("#addressArea").val();
+        let postalCode = $("#addressPostalCode").val();
+        let landmark = $("#addressLandmark").val();
+        let addressType = $("#addressType").val();
+
+        $.ajax({
+
+            url: "/addAddress/",
+            type: "POST",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            data: {
+                fullName: fullName,
+                dialCode: dialCode,
+                phoneNumber: phoneNumber,
+                addressLine1: addressLine1,
+                addressLine2: addressLine2,
+                countryId: countryId,
+                stateId: stateId,
+                cityId: cityId,
+                areaId: areaId,
+                postalCode: postalCode,
+                landmark: landmark,
+                addressType: addressType
+            },
+
+            success: function(response) {
+
+                alert(
+                    response.message ||
+                    "Address added successfully."
+                );
+
+
+                $("#addressModal").fadeOut();
+
+
+                clearAddressForm();
+
+
+                loadAddresses();
+
+            },
+
+            error: function(xhr) {
+                let message = "Unable to add address.";
+
+                if(
+                    xhr.responseJSON &&
+                    (
+                        xhr.responseJSON.message || xhr.responseJSON.error
+                    )
+                ) {
+                    message = xhr.responseJSON.message || xhr.responseJSON.error;
+                }
+                alert(message);
+            }
+        });
+    });
+
+    function clearAddressForm() {
+
+        $("#addressFullName").val("");
+
+        $("#addressDialCode").val("+91");
+
+        $("#addressPhone").val("");
+
+        $("#addressLine1").val("");
+
+        $("#addressLine2").val("");
+
+        $("#addressCountry").val("");
+
+        $("#addressState")
+            .empty()
+            .append(`
+                <option value="">
+                    Select State
+                </option>
+            `)
+            .prop("disabled", true);
+
+
+        $("#addressCity")
+            .empty()
+            .append(`
+                <option value="">
+                    Select City
+                </option>
+            `)
+            .prop("disabled", true);
+
+
+        $("#addressArea")
+            .empty()
+            .append(`
+                <option value="">
+                    Select Area
+                </option>
+            `)
+            .prop("disabled", true);
+
+
+        $("#addressPostalCode").val("");
+
+        $("#addressLandmark").val("");
+
+        $("#addressType").val("1");
+
+    }
+
+    $(document).on("change", "input[name='paymentMethod']", function() {
+        let paymentMethod = $(this).val();
+
+        if (paymentMethod == "card") {
+            $("#cardDetails").slideDown();
+        } else {
+            $("#cardDetails").slideUp();
+            $("#cardHolderName").val("");
+            $("#cardNumber").val("");
+            $("#cardExpireDate").val("");
+            $("#cardCvv").val("");
+        }
+    });
+
+    $("#cardNumber").on("input", function() {
+        this.value = this.value.replace(/[^0-9]/g, "");
+    });
+
+    $("#cardCvv").on("input", function() {
+        this.value = this.value.replace(/[^0-9]/g, "");
+    });
+
+    $("#cardExpireDate").on("input", function() {
+        let value = this.value.replace(/[^0-9]/g, "");
+
+        if (value.length > 4) {
+            value = value.substring(0, 4);
+        }
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + "/" + value.substring(2);
+        }
+        this.value = value;
+    });
+
+    $("#placeOrderBtn").click(function() {
+        let token = getToken();
+
+        if (!token) {
+            alert("Please login to continue.");
+            window.location.href = "/login/";
+            return;
+        }
+
+        let addressId = $("input[name='selectedAddress']:checked").val();
+        let paymentMethod = $("input[name='paymentMethod']:checked").val();
+
+        if (!addressId) {
+            alert("Please select delivery address.");
+            return;
+        }
+
+        if (!paymentMethod) {
+            alert("Please select payment method.");
+            return;
+        }
+
+        let cardHolderName = "";
+        let cardNumber = "";
+        let cardExpireDate = "";
+        let cardCvv = "";
+
+        if (paymentMethod == "card") {
+
+            cardHolderName = $("#cardHolderName").val().trim();
+            cardNumber = $("#cardNumber").val().trim();
+            cardExpireDate = $("#cardExpireDate").val().trim();
+            cardCvv = $("#cardCvv").val().trim();
+
+            if (!cardHolderName) {
+                alert("Please enter card holder name.");
+                return;
+            }
+
+            if (!cardNumber) {
+                alert("Please enter card number.");
+                return;
+            }
+
+            if (cardNumber.length != 16) {
+                alert("Card number must be 16 digits.");
+                return;
+            }
+
+            if (!cardExpireDate) {
+                alert("Please enter card expiry date.");
+                return;
+            }
+
+            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpireDate)) {
+                alert("Please enter expiry date in MM/YY format.");
+                return;
+            }
+
+            if (!cardCvv) {
+                alert("Please enter CVV.");
+                return;
+            }
+
+            if (cardCvv.length != 3) {
+                alert("CVV must be 3 digits.");
+                return;
+            }
+        }
+
+        let paymentMode = 0;
+
+        if (paymentMethod == "cod") {
+            paymentMode = 1;
+        }
+        else if (paymentMethod == "online") {
+            paymentMode = 2;
+        }
+        else if (paymentMethod == "card") {
+            paymentMode = 3;
+        }
+
+        if (!paymentMode) {
+            alert("Please select valid payment method.");
+            return;
+        }
+
+        let button = $("#placeOrderBtn");
+
+        button.prop("disabled", true);
+        button.text("Placing Order...");
+
+        $.ajax({
+
+            url: "/placeOrder/",
+            type: "POST",
+
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            data: {
+                addressId: addressId,
+                paymentMode: paymentMode,
+
+                cardHolderName: cardHolderName,
+                cardNumber: cardNumber,
+                cardExpireDate: cardExpireDate,
+                cardCvv: cardCvv
+            },
+
+            success: function(response) {
+                localStorage.setItem("orderNumber", response.orderNumber);
+                localStorage.setItem("orderId", response.orderId);
+                window.location.href = "/order-success/";
+            },
+
+            error: function(xhr) {
+
+                let message = "Unable to place order.";
+
+                if (xhr.responseJSON) {
+                    if (xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+                    else if (xhr.responseJSON.error) {
+                        message = xhr.responseJSON.error;
+                    }
+                }
+
+                alert(message);
+
+                button.prop("disabled", false);
+                button.text("Confirm Order");
+            }
+        });
+    });
+
+</script>
+{% endblock content%} {% endcomment %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+
+        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <a href="/shoping-cart" class="stext-109 cl8 hov-cl1 trans-04">
+            Shoping Cart
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Checkout
+        </span>
+
+    </div>
+
+</div>
+
+
+<section class="bg0 p-t-40 p-b-85">
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- ========================= -->
+            <!-- LEFT SIDE -->
+            <!-- ========================= -->
+
+            <div class="col-lg-7 col-xl-7 m-lr-auto m-b-50">
+
+                <!-- DELIVERY ADDRESS -->
+
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-b-30 p-lr-15-sm">
+
+                    <div class="flex-w flex-sb-m p-b-20">
+
+                        <h4 class="mtext-109 cl2 p-b-15">
+                            Delivery Address
+                        </h4>
+
+                        <button
+                            type="button"
+                            id="addAddressBtn"
+                            class="flex-c-m stext-101 cl0 size-111 bg3 bor14 hov-btn3 p-lr-15 trans-04">
+
+                            + Add Address
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="addressList">
+
+                        <div class="txt-center p-t-30 p-b-30">
+
+                            <span class="stext-111 cl6">
+                                Loading addresses...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- PAYMENT -->
+                <!-- ========================= -->
+
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 p-lr-15-sm">
+
+                    <h4 class="mtext-109 cl2 p-b-30">
+                        Payment Method
+                    </h4>
+
+
+                    <div class="payment-method">
+
+                        <label class="flex-w flex-m bor8 p-all-15 pointer">
+
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="cod"
+                                class="m-r-15 payment-radio"
+                                checked>
+
+                            <span class="stext-110 cl2">
+                                Cash on Delivery
+                            </span>
+
+                        </label>
+
+
+                        <label class="flex-w flex-m bor8 p-all-15 pointer">
+
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="online"
+                                class="m-r-15 payment-radio">
+
+                            <span class="stext-110 cl2">
+                                Online Payment
+                            </span>
+
+                        </label>
+
+
+                        <label class="flex-w flex-m bor8 p-all-15 pointer">
+
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="card"
+                                class="m-r-15 payment-radio">
+
+                            <span class="stext-110 cl2">
+                                Card
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- CARD DETAILS -->
+
+                    <div
+                        id="cardDetails"
+                        style="display:none;"
+                        class="p-t-25">
+
+                        <h5 class="mtext-106 cl2 p-b-20">
+                            Card Details
+                        </h5>
+
+
+                        <div class="p-b-15">
+
+                            <label class="stext-110 cl2">
+                                Card Holder Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cardHolderName"
+                                class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                                placeholder="Enter card holder name">
+
+                        </div>
+
+
+                        <div class="p-b-15">
+
+                            <label class="stext-110 cl2">
+                                Card Number
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cardNumber"
+                                class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                                placeholder="Enter card number"
+                                maxlength="16"
+                                inputmode="numeric">
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-6 p-b-15">
+
+                                <label class="stext-110 cl2">
+                                    Expiry Date
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="cardExpireDate"
+                                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                                    placeholder="MM/YY"
+                                    maxlength="5"
+                                    inputmode="numeric">
+
+                            </div>
+
+
+                            <div class="col-md-6 p-b-15">
+
+                                <label class="stext-110 cl2">
+                                    CVV
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="cardCvv"
+                                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                                    placeholder="CVV"
+                                    maxlength="3"
+                                    inputmode="numeric">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- RIGHT SIDE -->
+            <!-- ========================= -->
+
+            <div class="col-sm-10 col-lg-5 col-xl-5 m-lr-auto m-b-50">
+
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 p-lr-15-sm">
+
+                    <h4 class="mtext-109 cl2 p-b-30">
+                        Order Summary
+                    </h4>
+
+
+                    <!-- CART ITEMS -->
+
+                    <div id="checkoutCartItems">
+
+                        <div class="txt-center p-t-30 p-b-30">
+
+                            <span class="stext-111 cl6">
+                                Loading cart...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="flex-w flex-t bor12 p-t-20 p-b-13">
+
+                        <div class="size-208">
+
+                            <span class="stext-110 cl2">
+                                Subtotal :
+                            </span>
+
+                        </div>
+
+
+                        <div class="size-209">
+
+                            <span
+                                id="checkoutSubtotal"
+                                class="mtext-110 cl2">
+
+                                ₹0.00
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex-w flex-t bor12 p-t-15 p-b-15">
+
+                        <div class="size-208">
+
+                            <span class="stext-110 cl2">
+                                Tax :
+                            </span>
+
+                        </div>
+
+
+                        <div class="size-209">
+
+                            <span
+                                id="checkoutTax"
+                                class="mtext-110 cl2">
+
+                                ₹0.00
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SHIPPING -->
+
+                    <div class="flex-w flex-t bor12 p-t-15 p-b-15">
+
+                        <div class="size-208">
+
+                            <span class="stext-110 cl2">
+                                Shipping :
+                            </span>
+
+                        </div>
+
+
+                        <div class="size-209">
+
+                            <span
+                                id="checkoutShipping"
+                                class="mtext-110 cl2">
+
+                                Select address
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="flex-w flex-t p-t-27 p-b-20">
+
+                        <div class="size-208">
+
+                            <span class="mtext-101 cl2">
+                                Total :
+                            </span>
+
+                        </div>
+
+
+                        <div class="size-209 p-t-1">
+
+                            <span
+                                id="checkoutTotal"
+                                class="mtext-110 cl2">
+
+                                ₹0.00
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PLACE ORDER -->
+
+                    <button
+                        type="button"
+                        id="placeOrderBtn"
+                        class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 tran-04 pointer w-full">
+
+                        Confirm Order
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- ADDRESS MODAL -->
+<!-- ===================================================== -->
+
+<div
+    id="addressModal"
+    style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.5);
+        z-index:9999;
+    ">
+
+
+    <div
+        style="
+            width:90%;
+            max-width:600px;
+            background:white;
+            margin:50px auto;
+            padding:30px;
+            max-height:90vh;
+            overflow-y:auto;
+        ">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="flex-w flex-sb-m p-b-25">
+
+            <h4 class="mtext-109 cl2">
+                Add New Address
+            </h4>
+
+
+            <button
+                type="button"
+                id="closeAddressModal"
+                class="fs-20 cl2">
+
+                &#10006;
+
+            </button>
+
+        </div>
+
+
+        <div class="row">
+
+
+            <!-- FULL NAME -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="addressFullName"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    placeholder="Full Name">
+
+            </div>
+
+
+            <!-- DIAL CODE -->
+
+            <div class="col-md-3 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Dial Code
+                </label>
+
+                <input
+                    type="text"
+                    id="addressDialCode"
+                    value="+91"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full">
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="col-md-3 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Phone
+                </label>
+
+                <input
+                    type="text"
+                    id="addressPhone"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    placeholder="Phone">
+
+            </div>
+
+
+            <!-- ADDRESS LINE 1 -->
+
+            <div class="col-md-12 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Address Line 1
+                </label>
+
+                <input
+                    type="text"
+                    id="addressLine1"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    placeholder="House / Building">
+
+            </div>
+
+
+            <!-- ADDRESS LINE 2 -->
+
+            <div class="col-md-12 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Address Line 2
+                </label>
+
+                <input
+                    type="text"
+                    id="addressLine2"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    placeholder="Street / Area">
+
+            </div>
+
+
+            <!-- COUNTRY -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Country
+                </label>
+
+                <select
+                    id="addressCountry"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full">
+
+                    <option value="">
+                        Select Country
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- STATE -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    State
+                </label>
+
+                <select
+                    id="addressState"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    disabled>
+
+                    <option value="">
+                        Select State
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CITY -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    City
+                </label>
+
+                <select
+                    id="addressCity"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    disabled>
+
+                    <option value="">
+                        Select City
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- AREA -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Area
+                </label>
+
+                <select
+                    id="addressArea"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    disabled>
+
+                    <option value="">
+                        Select Area
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- POSTAL CODE -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Postal Code
+                </label>
+
+                <input
+                    type="text"
+                    id="addressPostalCode"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    placeholder="Postal Code">
+
+            </div>
+
+
+            <!-- LANDMARK -->
+
+            <div class="col-md-6 p-b-15">
+
+                <label class="stext-110 cl2">
+                    Landmark
+                </label>
+
+                <input
+                    type="text"
+                    id="addressLandmark"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full"
+                    placeholder="Landmark">
+
+            </div>
+
+
+            <!-- ADDRESS TYPE -->
+
+            <div class="col-md-12 p-b-20">
+
+                <label class="stext-110 cl2">
+                    Address Type
+                </label>
+
+                <select
+                    id="addressType"
+                    class="size-111 bor8 stext-111 cl2 p-lr-15 w-full">
+
+                    <option value="1">
+                        Home
+                    </option>
+
+                    <option value="2">
+                        Work
+                    </option>
+
+                    <option value="3">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- SAVE ADDRESS -->
+
+        <button
+            type="button"
+            id="saveAddressBtn"
+            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer w-full">
+
+            Save Address
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- JQUERY -->
+
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+
+<script>
+
+$(document).ready(function() {
+
+    loadAddresses();
+
+    loadCart();
+
+    loadCountries();
+
+});
+
+
+
+/* =====================================================
+   GET TOKEN
+===================================================== */
+
+function getToken() {
+
+    return localStorage.getItem("token");
+
+}
+
+
+
+/* =====================================================
+   LOAD COUNTRIES
+===================================================== */
+
+function loadCountries() {
+
+    $.ajax({
+
+        url: "/getCountries/",
+
+        type: "GET",
+
+        success: function(response) {
+
+            let countries = response.countries || response.country || [];
+
+            $("#addressCountry").empty();
+
+            $("#addressCountry").append(`
+                <option value="">
+                    Select Country
+                </option>
+            `);
+
+
+            $.each(countries, function(index, country) {
+
+                $("#addressCountry").append(`
+
+                    <option value="${country.countryId}">
+                        ${country.countryName}
+                    </option>
+
+                `);
+
+            });
+
+        },
+
+        error: function(xhr) {
+
+            console.log("Country Error:", xhr.responseText);
+
+        }
+
+    });
+
+}
+
+
+
+/* =====================================================
+   COUNTRY CHANGE
+===================================================== */
+
+$(document).on("change", "#addressCountry", function() {
+
+    let countryId = $(this).val();
+
+
+    $("#addressState").empty();
+
+    $("#addressCity").empty();
+
+    $("#addressArea").empty();
+
+
+    $("#addressState").append(`
+        <option value="">
+            Select State
+        </option>
+    `);
+
+    $("#addressCity").append(`
+        <option value="">
+            Select City
+        </option>
+    `);
+
+    $("#addressArea").append(`
+        <option value="">
+            Select Area
+        </option>
+    `);
+
+
+    $("#addressState").prop("disabled", true);
+
+    $("#addressCity").prop("disabled", true);
+
+    $("#addressArea").prop("disabled", true);
+
+
+    if (!countryId) {
+
+        return;
+
+    }
+
+
+    $.ajax({
+
+        url: "/getStates/",
+
+        type: "GET",
+
+        data: {
+            countryId: countryId
+        },
+
+        success: function(response) {
+
+            let states = response.states || response.state || [];
+
+            $.each(states, function(index, state) {
+
+                $("#addressState").append(`
+
+                    <option value="${state.stateId}">
+                        ${state.stateName}
+                    </option>
+
+                `);
+
+            });
+
+
+            $("#addressState").prop("disabled", false);
+
+        },
+
+        error: function(xhr) {
+
+            console.log("State Error:", xhr.responseText);
+
+        }
+
+    });
+
+});
+
+
+
+/* =====================================================
+   STATE CHANGE
+===================================================== */
+
+$(document).on("change", "#addressState", function() {
+
+    let stateId = $(this).val();
+
+
+    $("#addressCity").empty();
+
+    $("#addressArea").empty();
+
+
+    $("#addressCity").append(`
+        <option value="">
+            Select City
+        </option>
+    `);
+
+    $("#addressArea").append(`
+        <option value="">
+            Select Area
+        </option>
+    `);
+
+
+    $("#addressCity").prop("disabled", true);
+
+    $("#addressArea").prop("disabled", true);
+
+
+    if (!stateId) {
+
+        return;
+
+    }
+
+
+    $.ajax({
+
+        url: "/getCities/",
+
+        type: "GET",
+
+        data: {
+            stateId: stateId
+        },
+
+        success: function(response) {
+
+            let cities = response.cities || response.city || [];
+
+            $.each(cities, function(index, city) {
+
+                $("#addressCity").append(`
+
+                    <option value="${city.cityId}">
+                        ${city.cityName}
+                    </option>
+
+                `);
+
+            });
+
+
+            $("#addressCity").prop("disabled", false);
+
+        },
+
+        error: function(xhr) {
+
+            console.log("City Error:", xhr.responseText);
+
+        }
+
+    });
+
+});
+
+
+
+/* =====================================================
+   CITY CHANGE
+===================================================== */
+
+$(document).on("change", "#addressCity", function() {
+
+    let cityId = $(this).val();
+
+
+    $("#addressArea").empty();
+
+    $("#addressArea").append(`
+        <option value="">
+            Select Area
+        </option>
+    `);
+
+
+    $("#addressArea").prop("disabled", true);
+
+
+    if (!cityId) {
+
+        return;
+
+    }
+
+
+    $.ajax({
+
+        url: "/getAreas/",
+
+        type: "GET",
+
+        data: {
+            cityId: cityId
+        },
+
+        success: function(response) {
+
+            let areas = response.areas || response.area || [];
+
+            $.each(areas, function(index, area) {
+
+                $("#addressArea").append(`
+
+                    <option value="${area.areaId}">
+                        ${area.areaName}
+                    </option>
+
+                `);
+
+            });
+
+
+            $("#addressArea").prop("disabled", false);
+
+        },
+
+        error: function(xhr) {
+
+            console.log("Area Error:", xhr.responseText);
+
+        }
+
+    });
+
+});
+
+
+
+/* =====================================================
+   LOAD ADDRESSES
+===================================================== */
+
+function loadAddresses() {
+
+    let token = getToken();
+
+
+    if (!token) {
+
+        $("#addressList").html(`
+
+            <div class="txt-center p-t-30 p-b-30">
+
+                <span class="stext-111 cl6">
+
+                    Please login to continue.
+
+                </span>
+
+            </div>
+
+        `);
+
+        return;
+
+    }
+
+
+    $.ajax({
+
+        url: "/getAddresses/",
+
+        type: "GET",
+
+        headers: {
+
+            "Authorization": token,
+
+            "X-CSRFToken": "{{ csrf_token }}"
+
+        },
+
+
+        success: function(response) {
+
+            $("#addressList").empty();
+
+
+            let addresses = response.address || [];
+
+            console.log(addresses)
+            if (addresses.length === 0) {
+
+                $("#addressList").html(`
+
+                    <div class="txt-center p-t-15 p-b-15">
+
+                        <span class="stext-111 cl6">
+
+                            No saved address found.
+
+                        </span>
+
+                    </div>
+
+                `);
+
+                return;
+
+            }
+
+
+            $.each(addresses, function(index, address) {
+
+                let addressText = address.addressLine1 || "";
+
+
+                if (address.addressLine2) {
+
+                    addressText += ", " + address.addressLine2;
+
+                }
+
+
+                addressText += ", " +
+                    (address.city || "") +
+                    ", " +
+                    (address.state || "") +
+                    ", " +
+                    (address.country || "") +
+                    " - " +
+                    (address.postalCode || "");
+
+
+                $("#addressList").append(`
+
+                    <label
+                        class="bor8 p-all-20 m-b-15 pointer"
+                        style="display:block;">
+
+                        <div class="flex-w flex-m">
+
+                            <input
+                                type="radio"
+                                name="selectedAddress"
+                                value="${address.id}"
+                                class="m-r-15 address-radio">
+
+                            <div>
+
+                                <div class="flex-w flex-m">
+
+                                    <strong class="mtext-106 cl2">
+
+                                        ${address.addresstype || "Address"}
+
+                                    </strong>
+
+                                    <span class="stext-111 cl6 m-l-10">
+
+                                        ${address.fullName || ""}
+
+                                    </span>
+
+                                </div>
+
+
+                                <p class="stext-111 cl6 p-t-8">
+
+                                    ${addressText}
+
+                                </p>
+
+
+                                <p class="stext-111 cl6 p-t-5">
+
+                                    ${address.dialCode || ""}
+
+                                    ${address.phoneNumber || ""}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                `);
+
+            });
+
+
+            /*
+                Select first address automatically
+            */
+
+            $(".address-radio:first").prop("checked", true);
+
+            /*
+                Calculate shipping for first address
+            */
+
+            let firstAddressId = $(".address-radio:first").val();
+
+
+            if (firstAddressId) {
+
+                calculateShipping(firstAddressId);
+
+            }
+
+        },
+
+
+        error: function(xhr) {
+
+            console.log(xhr.responseText);
+
+
+            $("#addressList").html(`
+
+                <div class="txt-center p-t-30 p-b-30">
+
+                    <span class="stext-111 cl6">
+
+                        Unable to load addresses.
+
+                    </span>
+
+                </div>
+
+            `);
+
+        }
+
+    });
+
+}
+
+
+
+/* =====================================================
+   ADDRESS SELECT
+===================================================== */
+
+$(document).on(
+    "change",
+    "input[name='selectedAddress']",
+    function() {
+
+        let addressId = $(this).val();
+
+        calculateShipping(addressId);
+
+    }
+);
+
+
+
+/* =====================================================
+   CALCULATE SHIPPING
+===================================================== */
+
+function calculateShipping(addressId) {
+
+    let token = getToken();
+
+    if (!token) {
+        return;
+    }
+
+    $("#checkoutShipping").text("Calculating...");
+
+    $.ajax({
+
+        url: "/calculateShipping/",
+        type: "POST",
+
+        headers: {
+            "Authorization": token,
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+
+        data: {
+            addressId: addressId
+        },
+
+        success: function(response) {
+
+            // =========================
+            // STORE PICKUP LOCATION
+            // =========================
+
+            let storeStateId = 1;
+            let storeCityId = 1;
+            let storeAreaId = 1;
+
+
+            // =========================
+            // CUSTOMER LOCATION
+            // =========================
+
+            let customerStateId = response.stateId;
+            let customerCityId = response.cityId;
+            let customerAreaId = response.areaId;
+
+
+            // =========================
+            // SHIPPING CONDITION
+            // =========================
+
+            let shipping = 0;
+
+            if (storeAreaId == customerAreaId) {
+
+                shipping = 0;
+
+            }
+            else if (storeCityId == customerCityId) {
+
+                shipping = 50;
+
+            }
+            else if (storeStateId == customerStateId) {
+
+                shipping = 100;
+
+            }
+            else {
+
+                shipping = 200;
+
+            }
+
+
+            // =========================
+            // SUBTOTAL
+            // =========================
+
+            let subtotal =
+                parseFloat(
+                    $("#checkoutSubtotal")
+                    .text()
+                    .replace("₹", "")
+                    .replace(",", "")
+                ) || 0;
+
+
+            // =========================
+            // TOTAL
+            // =========================
+
+            let finalTotal = subtotal + shipping;
+
+
+            // =========================
+            // SHOW SHIPPING
+            // =========================
+
+            if (shipping == 0) {
+
+                $("#checkoutShipping").text("Free");
+
+            }
+            else {
+
+                $("#checkoutShipping").text(
+                    "₹" + shipping.toFixed(2)
+                );
+
+            }
+
+
+            // =========================
+            // SHOW TOTAL
+            // =========================
+
+            $("#checkoutTotal").text(
+                "₹" + finalTotal.toFixed(2)
+            );
+
+        },
+
+        error: function(xhr) {
+
+            console.log(
+                "Shipping Error:",
+                xhr.responseText
+            );
+
+            $("#checkoutShipping").text(
+                "Unable to calculate"
+            );
+
+        }
+
+    });
+}
+
+
+
+/* =====================================================
+   LOAD CART
+===================================================== */
+
+function loadCart() {
+
+    let token = getToken();
+
+
+    if (!token) {
+
+        $("#checkoutCartItems").html(`
+
+            <div class="txt-center p-t-30 p-b-30">
+
+                <span class="stext-111 cl6">
+
+                    Please login to continue.
+
+                </span>
+
+            </div>
+
+        `);
+
+        return;
+
+    }
+
+
+    $.ajax({
+
+        url: "/getCart/",
+
+        type: "GET",
+
+        headers: {
+
+            "Authorization": token,
+
+            "X-CSRFToken": "{{ csrf_token }}"
+
+        },
+
+
+        success: function(response) {
+
+            let cartItems =
+                response.cartItem || [];
+
+
+            $("#checkoutCartItems").empty();
+
+
+            if (cartItems.length === 0) {
+
+                $("#checkoutCartItems").html(`
+
+                    <div class="txt-center p-t-30 p-b-30">
+
+                        <h5 class="mtext-105 cl2">
+
+                            Your cart is empty
+
+                        </h5>
+
+
+                        <a
+                            href="/product/"
+                            class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 tran-04 m-t-15">
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                `);
+
+
+                $("#checkoutSubtotal").text("₹0.00");
+
+                $("#checkoutShipping").text("Select address");
+
+                $("#checkoutTotal").text("₹0.00");
+
+
+                return;
+
+            }
+
+
+            let subtotal = 0;
+
+
+            $.each(cartItems, function(index, item) {
+
+                let price =
+                    parseFloat(item.price) || 0;
+
+
+                let quantity =
+                    parseInt(item.quantity) || 1;
+
+
+                let total =
+                    parseFloat(item.total) || 0;
+
+
+                subtotal += total;
+
+
+                $("#checkoutCartItems").append(`
+
+                    <div class="flex-w flex-t p-b-20">
+
+                        <div
+                            class="how-itemcart1 m-r-15"
+                            style="width:65px; height:65px;">
+
+                            <img
+                                src="${item.image || '/static/images/no-image.jpg'}"
+                                alt="${item.productName || ''}"
+                                style="
+                                    width:65px;
+                                    height:65px;
+                                    object-fit:cover;
+                                ">
+
+                        </div>
+
+
+                        <div class="flex-col">
+
+                            <span class="stext-110 cl2">
+
+                                ${item.productName || ""}
+
+                            </span>
+
+
+                            <span class="stext-111 cl6 p-t-3">
+
+                                ${item.color
+                                    ? "Color: " + item.color
+                                    : ""}
+
+                                ${item.size
+                                    ? " | Size: " + item.size
+                                    : ""}
+
+                            </span>
+
+
+                            <span class="stext-111 cl6 p-t-3">
+
+                                ₹${price.toFixed(2)}
+
+                                ×
+
+                                ${quantity}
+
+                            </span>
+
+
+                            <span class="stext-110 cl2 p-t-3">
+
+                                ₹${total.toFixed(2)}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `);
+
+            });
+
+
+            /*
+                Only calculate subtotal here.
+
+                Shipping is calculated after address
+                selection using calculateShipping().
+            */
+
+            $("#checkoutSubtotal").text(
+                "₹" + subtotal.toFixed(2)
+            );
+
+
+            /*
+                If address is already selected,
+                recalculate shipping because subtotal
+                is now available.
+            */
+
+            let selectedAddress =
+                $("input[name='selectedAddress']:checked").val();
+
+
+            if (selectedAddress) {
+
+                calculateShipping(selectedAddress);
+
+            }
+            else {
+
+                $("#checkoutShipping").text(
+                    "Select address"
+                );
+
+                $("#checkoutTotal").text(
+                    "₹" + subtotal.toFixed(2)
+                );
+
+            }
+
+        },
+
+
+        error: function(xhr) {
+
+            console.log(
+                "Cart Error:",
+                xhr.responseText
+            );
+
+
+            $("#checkoutCartItems").html(`
+
+                <div class="txt-center p-t-30 p-b-30">
+
+                    <span class="stext-111 cl6">
+
+                        Unable to load cart.
+
+                    </span>
+
+                </div>
+
+            `);
+
+        }
+
+    });
+
+}
+
+
+
+/* =====================================================
+   OPEN ADDRESS MODAL
+===================================================== */
+
+$("#addAddressBtn").click(function() {
+
+    $("#addressModal").fadeIn();
+
+});
+
+
+
+/* =====================================================
+   CLOSE ADDRESS MODAL
+===================================================== */
+
+$("#closeAddressModal").click(function() {
+
+    $("#addressModal").fadeOut();
+
+});
+
+
+
+/* =====================================================
+   SAVE ADDRESS
+===================================================== */
+
+$("#saveAddressBtn").click(function() {
+
+    let token = getToken();
+
+
+    if (!token) {
+
+        alert("Please login to continue.");
+
+        return;
+
+    }
+
+
+    /* =========================
+       GET FORM VALUES
+    ========================= */
+
+    let fullName =
+        $("#addressFullName").val().trim();
+
+
+    let dialCode =
+        $("#addressDialCode").val().trim();
+
+
+    let phoneNumber =
+        $("#addressPhone").val().trim();
+
+
+    let addressLine1 =
+        $("#addressLine1").val().trim();
+
+
+    let addressLine2 =
+        $("#addressLine2").val().trim();
+
+
+    let countryId =
+        $("#addressCountry").val();
+
+
+    let stateId =
+        $("#addressState").val();
+
+
+    let cityId =
+        $("#addressCity").val();
+
+
+    let areaId =
+        $("#addressArea").val();
+
+
+    let postalCode =
+        $("#addressPostalCode").val().trim();
+
+
+    let landmark =
+        $("#addressLandmark").val().trim();
+
+
+    let addressType =
+        $("#addressType").val();
+
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (!fullName) {
+
+        alert("Please enter full name.");
+
+        return;
+
+    }
+
+
+    if (!phoneNumber) {
+
+        alert("Please enter phone number.");
+
+        return;
+
+    }
+
+
+    if (!addressLine1) {
+
+        alert("Please enter address.");
+
+        return;
+
+    }
+
+
+    if (!countryId) {
+
+        alert("Please select country.");
+
+        return;
+
+    }
+
+
+    if (!stateId) {
+
+        alert("Please select state.");
+
+        return;
+
+    }
+
+
+    if (!cityId) {
+
+        alert("Please select city.");
+
+        return;
+
+    }
+
+
+    if (!areaId) {
+
+        alert("Please select area.");
+
+        return;
+
+    }
+
+
+    if (!postalCode) {
+
+        alert("Please enter postal code.");
+
+        return;
+
+    }
+
+
+
+    /* =========================
+       AJAX
+    ========================= */
+
+    $.ajax({
+
+        url: "/addAddress/",
+
+        type: "POST",
+
+        headers: {
+
+            "Authorization": token,
+
+            "X-CSRFToken": "{{ csrf_token }}"
+
+        },
+
+
+        data: {
+
+            fullName: fullName,
+
+            dialCode: dialCode,
+
+            phoneNumber: phoneNumber,
+
+            addressLine1: addressLine1,
+
+            addressLine2: addressLine2,
+
+            countryId: countryId,
+
+            stateId: stateId,
+
+            cityId: cityId,
+
+            areaId: areaId,
+
+            postalCode: postalCode,
+
+            landmark: landmark,
+
+            addressType: addressType
+
+        },
+
+
+        success: function(response) {
+
+            alert(
+                response.message ||
+                "Address added successfully."
+            );
+
+
+            $("#addressModal").fadeOut();
+
+
+            clearAddressForm();
+
+
+            loadAddresses();
+
+        },
+
+
+        error: function(xhr) {
+
+            console.log(
+                "Address Error:",
+                xhr.responseText
+            );
+
+
+            let message =
+                "Unable to add address.";
+
+
+            if (xhr.responseJSON) {
+
+                if (xhr.responseJSON.message) {
+
+                    message =
+                        xhr.responseJSON.message;
+
+                }
+                else if (xhr.responseJSON.error) {
+
+                    message =
+                        xhr.responseJSON.error;
+
+                }
+
+            }
+
+
+            alert(message);
+
+        }
+
+    });
+
+});
+
+
+
+/* =====================================================
+   CLEAR ADDRESS FORM
+===================================================== */
+
+function clearAddressForm() {
+
+    $("#addressFullName").val("");
+
+    $("#addressDialCode").val("+91");
+
+    $("#addressPhone").val("");
+
+    $("#addressLine1").val("");
+
+    $("#addressLine2").val("");
+
+    $("#addressCountry").val("");
+
+    $("#addressState")
+        .empty()
+        .append(`
+            <option value="">
+                Select State
+            </option>
+        `)
+        .prop("disabled", true);
+
+
+    $("#addressCity")
+        .empty()
+        .append(`
+            <option value="">
+                Select City
+            </option>
+        `)
+        .prop("disabled", true);
+
+
+    $("#addressArea")
+        .empty()
+        .append(`
+            <option value="">
+                Select Area
+            </option>
+        `)
+        .prop("disabled", true);
+
+
+    $("#addressPostalCode").val("");
+
+    $("#addressLandmark").val("");
+
+    $("#addressType").val("1");
+
+}
+
+
+
+/* =====================================================
+   PAYMENT METHOD CHANGE
+===================================================== */
+
+$(document).on(
+    "change",
+    "input[name='paymentMethod']",
+    function() {
+
+        let paymentMethod = $(this).val();
+
+
+        if (paymentMethod == "card") {
+
+            $("#cardDetails").slideDown();
+
+        }
+        else {
+
+            $("#cardDetails").slideUp();
+
+            $("#cardHolderName").val("");
+
+            $("#cardNumber").val("");
+
+            $("#cardExpireDate").val("");
+
+            $("#cardCvv").val("");
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   CARD NUMBER
+===================================================== */
+
+$("#cardNumber").on("input", function() {
+
+    this.value =
+        this.value.replace(/[^0-9]/g, "");
+
+});
+
+
+
+/* =====================================================
+   CVV
+===================================================== */
+
+$("#cardCvv").on("input", function() {
+
+    this.value =
+        this.value.replace(/[^0-9]/g, "");
+
+});
+
+
+
+/* =====================================================
+   CARD EXPIRY
+===================================================== */
+
+$("#cardExpireDate").on("input", function() {
+
+    let value =
+        this.value.replace(/[^0-9]/g, "");
+
+
+    if (value.length > 4) {
+
+        value =
+            value.substring(0, 4);
+
+    }
+
+
+    if (value.length >= 2) {
+
+        value =
+            value.substring(0, 2)
+            +
+            "/"
+            +
+            value.substring(2);
+
+    }
+
+
+    this.value = value;
+
+});
+
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+$("#placeOrderBtn").click(function() {
+
+    let token = getToken();
+
+
+    if (!token) {
+
+        alert("Please login to continue.");
+
+        window.location.href = "/login/";
+
+        return;
+
+    }
+
+
+    let addressId =
+        $("input[name='selectedAddress']:checked").val();
+
+
+    let paymentMethod =
+        $("input[name='paymentMethod']:checked").val();
+
+
+    /* =========================
+       ADDRESS VALIDATION
+    ========================= */
+
+    if (!addressId) {
+
+        alert(
+            "Please select delivery address."
+        );
+
+        return;
+
+    }
+
+
+    /* =========================
+       PAYMENT VALIDATION
+    ========================= */
+
+    if (!paymentMethod) {
+
+        alert(
+            "Please select payment method."
+        );
+
+        return;
+
+    }
+
+
+    let cardHolderName = "";
+
+    let cardNumber = "";
+
+    let cardExpireDate = "";
+
+    let cardCvv = "";
+
+
+
+    /* =========================
+       CARD VALIDATION
+    ========================= */
+
+    if (paymentMethod == "card") {
+
+        cardHolderName =
+            $("#cardHolderName")
+            .val()
+            .trim();
+
+
+        cardNumber =
+            $("#cardNumber")
+            .val()
+            .trim();
+
+
+        cardExpireDate =
+            $("#cardExpireDate")
+            .val()
+            .trim();
+
+
+        cardCvv =
+            $("#cardCvv")
+            .val()
+            .trim();
+
+
+
+        if (!cardHolderName) {
+
+            alert(
+                "Please enter card holder name."
+            );
+
+            return;
+
+        }
+
+
+        if (!cardNumber) {
+
+            alert(
+                "Please enter card number."
+            );
+
+            return;
+
+        }
+
+
+        if (cardNumber.length != 16) {
+
+            alert(
+                "Card number must be 16 digits."
+            );
+
+            return;
+
+        }
+
+
+        if (!cardExpireDate) {
+
+            alert(
+                "Please enter card expiry date."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !/^(0[1-9]|1[0-2])\/\d{2}$/
+            .test(cardExpireDate)
+        ) {
+
+            alert(
+                "Please enter expiry date in MM/YY format."
+            );
+
+            return;
+
+        }
+
+
+        if (!cardCvv) {
+
+            alert(
+                "Please enter CVV."
+            );
+
+            return;
+
+        }
+
+
+        if (cardCvv.length != 3) {
+
+            alert(
+                "CVV must be 3 digits."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+
+    /* =========================
+       PAYMENT MODE
+    ========================= */
+
+    let paymentMode = 0;
+
+
+    if (paymentMethod == "cod") {
+
+        paymentMode = 1;
+
+    }
+    else if (paymentMethod == "online") {
+
+        paymentMode = 2;
+
+    }
+    else if (paymentMethod == "card") {
+
+        paymentMode = 3;
+
+    }
+
+
+    if (!paymentMode) {
+
+        alert(
+            "Please select valid payment method."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    let button =
+        $("#placeOrderBtn");
+
+
+    button.prop(
+        "disabled",
+        true
+    );
+
+
+    button.text(
+        "Placing Order..."
+    );
+
+
+
+    /* =========================
+       PLACE ORDER API
+    ========================= */
+
+    $.ajax({
+
+        url: "/placeOrder/",
+
+        type: "POST",
+
+
+        headers: {
+
+            "Authorization": token,
+
+            "X-CSRFToken": "{{ csrf_token }}"
+
+        },
+
+
+        data: {
+
+            addressId: addressId,
+
+            paymentMode: paymentMode,
+
+            cardHolderName: cardHolderName,
+
+            cardNumber: cardNumber,
+
+            cardExpireDate: cardExpireDate,
+
+            cardCvv: cardCvv
+
+        },
+
+
+        success: function(response) {
+
+            localStorage.setItem(
+                "orderNumber",
+                response.orderNumber
+            );
+
+
+            localStorage.setItem(
+                "orderId",
+                response.orderId
+            );
+
+
+            window.location.href =
+                "/order-success/";
+
+        },
+
+
+        error: function(xhr) {
+
+            console.log(
+                "Order Error:",
+                xhr.responseText
+            );
+
+
+            let message =
+                "Unable to place order.";
+
+
+            if (xhr.responseJSON) {
+
+                if (xhr.responseJSON.message) {
+
+                    message =
+                        xhr.responseJSON.message;
+
+                }
+                else if (xhr.responseJSON.error) {
+
+                    message =
+                        xhr.responseJSON.error;
+
+                }
+
+            }
+
+
+            alert(message);
+
+
+            button.prop(
+                "disabled",
+                false
+            );
+
+
+            button.text(
+                "Confirm Order"
+            );
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock content %}

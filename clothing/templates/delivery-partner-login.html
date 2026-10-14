@@ -1,0 +1,195 @@
+{% load static %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-color: #f6f5f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        position: relative;
+        overflow: hidden;
+        width: 500px;
+        max-width: 100%;
+        min-height: 550px;
+    }
+
+    .form-container {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        transition: all 0.6s ease-in-out;
+    }
+
+    .login-container {
+        left: 0;
+        width: 100%;
+        z-index: 2;
+    }
+
+    form {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 50px;
+        height: 100%;
+        text-align: center;
+    }
+
+    form h1 {
+        margin-bottom: 10px;
+    }
+
+    input {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 7px 0;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    button {
+        background-color: #4d4949;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 12px 45px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 20px;
+        border: 1px solid #111;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: transform 80ms ease;
+    }
+
+    button:active {transform: scale(0.95);}
+
+    button.hidden {
+        background-color: transparent;
+        border-color: #fff;
+        color: #fff;
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 12px;
+        margin: 10px 0;
+    }
+
+    .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .checkbox input {
+        width: auto;
+        margin: 0;
+    }
+
+    #registerMessage,
+    #loginMessage {
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .success-message {
+        color: green;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+</style>
+
+<div class="container" id="container">
+    <div class="form-container login-container">
+        <form id="loginForm">
+            {% csrf_token %}
+            <h1>Welcome Back!</h1>
+            <input type="email" placeholder="Email" id="loginEmail" required>
+            <input type="password" placeholder="Password" id="loginPassword" required>
+            <div class="content">
+                <div class="checkbox">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <a href="#">Forgot password?</a>
+            </div>  
+            <p id="loginMessage"></p>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#loginForm").submit(function (e) {
+            e.preventDefault();
+
+            console.log("LOGIN BUTTON CLICKED");
+
+            let email = $("#loginEmail").val().trim();
+            let password = $("#loginPassword").val();
+            
+            $("#loginMessage").removeClass("success-message error-message").text("");
+     
+                $.ajax({
+                    url: "/deliveryPartnerLogin/",
+                    type: "POST",
+
+                    data: {
+                        email: email,
+                        password: password,
+                        csrfmiddlewaretoken:
+                            $("#loginForm input[name='csrfmiddlewaretoken']").val()
+                    },
+
+                    success: function(response) {
+
+                        localStorage.setItem(
+                            "deliveryToken",
+                            response.token
+                        );
+
+                        window.location.href = "/delivery-dashboard/";
+                    },
+
+                    error: function(xhr) {
+
+                        if (xhr.responseJSON) {
+                            alert(xhr.responseJSON.message);
+                        } else {
+                            alert("Something went wrong.");
+                        }
+                    }
+                });
+        });
+    })
+</script>

@@ -1,0 +1,871 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        color: #333;
+    }
+
+
+    /* =========================
+        SIDEBAR
+    ========================= */
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: #ffffff;
+        border-right: 1px solid #eeeeee;
+        z-index: 1000;
+    }
+
+    .sidebar-logo {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .sidebar-logo a {
+        text-decoration: none;
+        color: #222;
+        font-size: 23px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .sidebar-logo span {
+        color: #717fe0;
+    }
+
+    .menu-title {
+        padding: 25px 25px 10px;
+        font-size: 11px;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar-menu li {
+        margin: 4px 12px;
+    }
+
+    .sidebar-menu li a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 13px 15px;
+        color: #555;
+        text-decoration: none;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: 0.2s;
+    }
+
+    .sidebar-menu li a i {
+        font-size: 18px;
+        width: 22px;
+        text-align: center;
+    }
+
+    .sidebar-menu li a:hover {
+        background: #f5f5f5;
+        color: #717fe0;
+    }
+
+    .sidebar-menu li.active a {
+        background: #717fe0;
+        color: #ffffff;
+    }
+
+    .sidebar-bottom {
+        position: absolute;
+        bottom: 20px;
+        left: 12px;
+        right: 12px;
+    }
+
+    .logout-link {
+        cursor: pointer;
+    }
+
+
+    /* =========================
+        MAIN CONTENT
+    ========================= */
+
+    .main-content {
+        margin-left: 250px;
+        min-height: 100vh;
+    }
+
+
+    /* =========================
+        TOP HEADER
+    ========================= */
+
+    .top-header {
+        height: 80px;
+        background: #ffffff;
+        border-bottom: 1px solid #eeeeee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 35px;
+    }
+
+    .page-title h4 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .page-title p {
+        margin: 5px 0 0;
+        color: #999;
+        font-size: 13px;
+    }
+
+    .profile-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .profile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f1f1f1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        font-size: 18px;
+    }
+
+    .profile-name {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .profile-role {
+        display: block;
+        font-size: 11px;
+        color: #999;
+        margin-top: 2px;
+    }
+
+
+    /* =========================
+        PAGE AREA
+    ========================= */
+
+    .page-content {
+        padding: 30px 35px;
+    }
+
+
+    /* =========================
+        STAT CARDS
+    ========================= */
+
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        padding: 22px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .stat-info h6 {
+        margin: 0 0 10px;
+        color: #888;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .stat-info h3 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+        color: #717fe0;
+        font-size: 20px;
+    }
+
+
+    /* =========================
+        SHIPMENT SECTION
+    ========================= */
+
+    .shipment-card {
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        border-radius: 5px;
+    }
+
+    .shipment-header {
+        padding: 22px 25px;
+        border-bottom: 1px solid #eeeeee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .shipment-header h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .shipment-header span {
+        font-size: 13px;
+        color: #999;
+    }
+
+
+    /* =========================
+        TABLE
+    ========================= */
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .shipment-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .shipment-table th {
+        padding: 15px 20px;
+        background: #fafafa;
+        color: #777;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .shipment-table td {
+        padding: 18px 20px;
+        border-top: 1px solid #eeeeee;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .shipment-table tbody tr:hover {
+        background: #fcfcfc;
+    }
+
+
+    /* =========================
+        STATUS
+    ========================= */
+
+    .status {
+        display: inline-block;
+        padding: 6px 11px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        background: #fff5d6;
+        color: #b98500;
+    }
+
+    .status-picked {
+        background: #e9f3ff;
+        color: #2979c7;
+    }
+
+    .status-out {
+        background: #eeeaff;
+        color: #6655c9;
+    }
+
+    .status-delivered {
+        background: #e7f8ed;
+        color: #2c9b57;
+    }
+
+    .status-exception {
+        background: #ffe8e8;
+        color: #d34b4b;
+    }
+
+
+    /* =========================
+        ACTION BUTTON
+    ========================= */
+
+    .action-btn {
+        border: 0;
+        background: #717fe0;
+        color: #ffffff;
+        padding: 8px 14px;
+        border-radius: 3px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .action-btn:hover {
+        background: #5967d0;
+    }
+
+    .action-btn:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
+    }
+
+
+    /* =========================
+        EMPTY DATA
+    ========================= */
+
+    .empty-row {
+        text-align: center;
+        padding: 50px !important;
+        color: #999;
+    }
+
+
+    /* =========================
+        MOBILE
+    ========================= */
+
+    @media (max-width: 991px) {
+
+        .sidebar {
+            width: 220px;
+        }
+
+        .main-content {
+            margin-left: 220px;
+        }
+
+        .stats-row {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+    }
+
+    @media (max-width: 767px) {
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+            border-right: 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .sidebar-bottom {
+            position: relative;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            margin: 10px 12px;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .top-header {
+            padding: 15px 20px;
+            height: auto;
+        }
+
+        .page-content {
+            padding: 20px;
+        }
+
+        .stats-row {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+</style>
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <a href="/delivery-dashboard/">
+            Style<span>Craft</span>
+        </a>
+    </div>
+
+    <div class="menu-title">Delivery Portal</div>
+
+    <ul class="sidebar-menu">
+        <li class="active">
+            <a href="/delivery-dashboard/">
+                <i class="zmdi zmdi-view-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/pending-shipments/">
+                <i class="zmdi zmdi-time"></i>
+                <span>Pending Shipments</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/my-shipments/">
+                <i class="zmdi zmdi-truck"></i>
+                <span>My Shipments</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/out-for-delivery/">
+                <i class="zmdi zmdi-truck"></i>
+                Out For Delivery
+            </a>
+        </li>
+
+        <li>
+            <a href="/delivered-shipments/">
+                <i class="zmdi zmdi-check-circle"></i>
+                <span>Delivered</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/exception-shipments/">
+                <i class="zmdi zmdi-alert-circle"></i>
+                <span>Exceptions</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="sidebar-bottom">
+        <ul class="sidebar-menu">
+            <li>
+                <a class="logout-link" onclick="logout()">
+                    <i class="zmdi zmdi-power"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-content">
+
+    <!-- TOP HEADER -->
+    <div class="top-header">
+        <div class="page-title">
+            <h4>Delivery Dashboard</h4>
+            <p>Manage your assigned shipments</p>
+        </div>
+
+        <div class="profile-area">
+            <div class="profile-icon">
+                <i class="fa fa-user"></i>
+            </div>
+
+            <div>
+                <span class="profile-name" id="deliveryPartnerName">
+                    Delivery Partner
+                </span>
+
+                <span class="profile-role">
+                    Delivery Partner
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+        <!-- STATISTICS -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-info">
+
+                    <h6>Pending</h6>
+                    <h3 id="pendingCount">0</h3>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="zmdi zmdi-time"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+
+                    <h6>Picked Up</h6>
+                    <h3 id="pickedCount">0</h3>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="zmdi zmdi-shopping-basket"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+
+                    <h6>Out for Delivery</h6>
+                    <h3 id="outDeliveryCount">0</h3>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="zmdi zmdi-truck"></i> 
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+
+                    <h6>Delivered</h6>
+                    <h3 id="deliveredCount">0</h3>
+
+                </div>
+
+                <div class="stat-icon">
+                    <i class="zmdi zmdi-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHIPMENT TABLE -->
+        <div class="shipment-card">
+            <div class="shipment-header">
+                <div>
+
+                    <h4 id="shipmentTitle">My Shipments</h4>
+                    <span id="shipmentSubtitle">
+                        Manage your delivery orders
+                    </span>
+
+                </div>
+
+                <span id="shipmentTotal">0 Shipments</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="shipment-table">
+                    <thead>
+                        <tr>
+                            <th>Shipment</th>
+                            <th>Order</th>
+                            <th>Shipping Date</th>
+                            <th>Estimated Delivery</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="shipmentTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+<script>
+
+    $(document).ready(function() {
+        loadDashboard();
+    });
+
+    /* LOAD DASHBOARD */
+    function loadDashboard() {
+
+        let token = localStorage.getItem("deliveryToken");
+
+        if (!token) {
+            window.location.href = "/delivery-partner-login/";
+            return;
+        }
+
+        let partner = localStorage.getItem("deliveryPartner");
+
+        if (partner) {
+
+            try {
+                partner = JSON.parse(partner);
+
+                $("#deliveryPartnerName").text(
+                    partner.firstName + " " + partner.lastName
+                );
+
+            } catch (error) {
+
+                // Remove invalid data
+                localStorage.removeItem("deliveryPartner");
+
+                $("#deliveryPartnerName").text("Delivery Partner");
+            }
+        }
+
+        getShipments();
+    }
+
+    /* GET PENDING SHIPMENTS */
+    function getShipments(status) {
+
+        let token = localStorage.getItem("deliveryToken");
+       
+        if (!token) {
+            window.location.href = "/delivery-partner-login/";
+            return;
+        }
+
+        let url = "/getShipments/";
+        if (status) {
+            url = "/getShipments/?status=" + status;
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            success: function(response) {
+
+                let shipments = response.shipments || [];
+                
+                let pending = 0;
+                let pickedUp = 0;
+                let outForDelivery = 0;
+                let delivered = 0;
+
+                for (let i = 0; i < shipments.length; i++) {
+
+                    let item = shipments[i];
+
+                    if (item.currentStatus == 1) {
+
+                        pending++;
+
+                    } else if (item.currentStatus == 2) {
+
+                        pickedUp++;
+
+                    } else if (item.currentStatus == 3) {
+
+                        outForDelivery++;
+
+                    } else if (item.currentStatus == 4) {
+
+                        delivered++;
+
+                    }
+
+                }
+
+                $("#pendingCount").text(pending);
+                $("#pickedCount").text(pickedUp);
+                $("#outDeliveryCount").text(outForDelivery);
+                $("#deliveredCount").text(delivered);
+                
+                $("#shipmentTable").html("");
+
+                for (let i = 0; i < shipments.length; i++) {
+                    let item = shipments[i];
+                    let actionButton = "";
+
+                    if (item.currentStatus == 1) {
+                        actionButton = `
+                            <button class="action-btn" onclick="changeStatus(${item.shipmentId}, 2)">
+                                Pick Up
+                            </button>
+                        `;
+
+                    } else if (item.currentStatus == 2) {
+                        actionButton = `
+                            <button class="action-btn" onclick="changeStatus(${item.shipmentId}, 3)">
+                                Out for Delivery
+                            </button>
+                        `;
+
+                    } else if (item.currentStatus == 3) {
+                        actionButton = `
+                            <button class="action-btn" onclick="changeStatus(${item.shipmentId}, 4)">
+                                Mark Delivered
+                            </button>
+                        `;
+
+                    } else if (item.currentStatus == 4) {
+                        actionButton = `
+                            <span class="status status-delivered">
+                                Completed
+                            </span>
+                        `;
+
+                    } else if (item.currentStatus == 5) {
+                        actionButton = `
+                            <span class="status status-exception">
+                                Exception
+                            </span>
+                        `;
+                    }
+
+                    let statusClass = "";
+
+                    if (item.currentStatus == 1) {
+                        statusClass = "status-pending";
+                    } else if (item.currentStatus == 2) {
+                        statusClass = "status-picked";
+                    } else if (item.currentStatus == 3) {
+                        statusClass = "status-out";
+                    } else if (item.currentStatus == 4) {
+                        statusClass = "status-delivered";
+                    } else if (item.currentStatus == 5) {
+                        statusClass = "status-exception";
+                    }
+
+                    let row = `
+                        <tr>
+                            <td>#${item.shipmentId}</td>
+                            <td>${item.orderNumber}</td>
+                            <td>${item.shippingDate}</td>
+                            <td>${item.estimateDelivery}</td>
+                            <td>
+                                <span class="status ${statusClass}">
+                                    ${item.currentStatusName}
+                                </span>
+                            </td>
+                            <td>
+                                ${actionButton}
+                            </td>
+                        </tr>`;
+                    $("#shipmentTable").append(row);
+                }
+                
+                $("#shipmentTotal").text(
+                    shipments.length + " Shipments"
+                );
+
+                if (shipments.length == 0) {
+                    $("#shipmentTable").html(`
+                        <tr>
+                            <td colspan="6" class="empty-row">
+                                No shipments found.
+                            </td>
+                        </tr>
+                    `);
+                }
+            },
+
+            error: function(response) {
+                console.log(response);
+
+                if (response.responseJSON) {
+                    alert(response.responseJSON.message);
+                } else {
+                    alert("Unable to fetch shipments.");
+                }
+            }
+        });
+    }
+
+    /* CHANGE STATUS */
+    function changeStatus(shipmentId, status) {
+
+        let token = localStorage.getItem("deliveryToken");
+
+        $.ajax({
+            url: "/changeStatus/",
+            type: "PUT",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+
+            },
+            data: {
+                shipmentId: shipmentId,
+                status: status
+            },
+
+            success: function(response) {
+                alert(response.message);
+                loadDashboard();
+            },
+
+            error: function(response) {
+                if (response.responseJSON) {
+                    alert(response.responseJSON.message);
+
+                } else {
+                    alert("Something went wrong.");
+                }
+            }
+        });
+    }
+
+    /* SIDEBAR FUNCTIONS */
+    function showShipments() {
+        getShipments();
+    }
+
+    /* LOGOUT */
+    function logout() {
+        localStorage.removeItem("deliveryToken");
+        localStorage.removeItem("deliveryPartner");
+        window.location.href = "/delivery-partner-login/";
+    }
+
+</script>

@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Title -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static "images/bg-01.jpg" %}');">
+    <h2 class="ltext-105 cl0 txt-center">
+        Product Review
+    </h2>
+</section>
+
+
+<!-- Review -->
+<section class="bg0 p-t-75 p-b-80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="bor10 p-lr-40 p-t-40 p-b-40 p-lr-15-sm">
+                    <h4 class="mtext-105 cl2 txt-center p-b-30">
+                        Write Your Review
+                    </h4>
+
+                    <div id="productInfo" class="bor8 p-all-15 m-b-25">
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="p-b-20">
+                        <label class="stext-102 cl3">Rating</label>
+
+                        <select id="rating" class="form-control">
+                            <option value="">Select Rating</option>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="3">3 - Good</option>
+                            <option value="2">2 - Average</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
+
+                    </div>
+
+                    <div class="p-b-20">
+                        <label class="stext-102 cl3">Review Title</label>
+                        <input type="text" id="reviewTitle" class="form-control" placeholder="Enter review title">
+                    </div>
+
+                    <!-- Review -->
+                    <div class="p-b-20">
+                        <label class="stext-102 cl3">Your Review</label>
+                        <textarea id="review" class="form-control" rows="5" maxlength="255" placeholder="Write your review..."></textarea>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="p-b-20">
+                        <label class="stext-102 cl3">Upload Image</label>
+                        <input type="file" id="reviewImage" class="form-control" accept="image/*">
+                    </div>
+
+                    <p id="reviewMessage" class="text-center p-b-15">
+                    </p>
+
+                    <!-- Submit -->
+                    <button type="button" id="submitReviewBtn" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 w-100">
+                        Submit Review
+                    </button>
+
+
+                    <div class="text-center p-t-20">
+                        <a href="/" class="stext-107 cl6">
+                            Back to home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="{% static "vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+
+<script>
+
+$(document).ready(function () {
+
+    let token = localStorage.getItem("token");
+
+    if (!token) {
+
+        window.location.href = "/register/";
+
+        return;
+
+    }
+
+
+    let orderId = "{{ orderId }}";
+
+    let orderItemId = "{{ orderItemId }}";
+
+
+    $.ajax({
+
+        url: "/getOrderItem/",
+
+        type: "GET",
+
+        headers: {
+            "Authorization": token
+        },
+
+        data: {
+            orderItemId: orderItemId
+        },
+
+        success: function (response) {
+
+            console.log("Order Item:", response);
+
+            let item = response.orderItem;
+
+
+            $("#productInfo").html(`
+
+                <h5 class="mtext-106 cl2">
+
+                    ${item.productName}
+
+                </h5>
+
+                <p class="stext-111 cl6">
+
+                    Color: ${item.color || "-"}
+
+                </p>
+
+                <p class="stext-111 cl6">
+
+                    Size: ${item.size || "-"}
+
+                </p>
+
+                <p class="stext-111 cl6">
+
+                    Quantity: ${item.quantity}
+
+                </p>
+
+            `);
+
+        },
+
+        error: function (xhr) {
+
+            console.log(xhr.responseText);
+
+            $("#productInfo").html(`
+
+                <p class="text-danger">
+
+                    Unable to load product.
+
+                </p>
+
+            `);
+
+        }
+
+    });
+
+
+    // Submit Review
+
+    $("#submitReviewBtn").click(function () {
+
+        let rating = $("#rating").val();
+
+        let title = $("#reviewTitle").val();
+
+        let review = $("#review").val().trim();
+
+        let image = $("#reviewImage")[0].files[0];
+
+
+        if (!rating) {
+
+            $("#reviewMessage")
+                .text("Please select rating.")
+                .css("color", "red");
+
+            return;
+
+        }
+
+
+        if (!title) {
+
+            $("#reviewMessage")
+                .text("Please enter review title.")
+                .css("color", "red");
+
+            return;
+
+        }
+
+
+        if (!review) {
+
+            $("#reviewMessage")
+                .text("Please enter your review.")
+                .css("color", "red");
+
+            return;
+
+        }
+
+
+        let formData = new FormData();
+
+        formData.append("orderId", orderId);
+
+        formData.append("orderItemId", orderItemId);
+
+        formData.append("rating", rating);
+
+        formData.append("title", title);
+
+        formData.append("review", review);
+
+
+        if (image) {
+
+            formData.append("images", image);
+
+        }
+
+
+        $.ajax({
+
+            url: "/addReview/",
+
+            type: "POST",
+
+            headers: {
+
+                "Authorization": token,
+
+                "X-CSRFToken": "{{ csrf_token }}"
+
+            },
+
+            data: formData,
+
+            processData: false,
+
+            contentType: false,
+
+            success: function (response) {
+
+                console.log("Review Response:", response);
+
+
+                $("#reviewMessage")
+                    .text(response.message)
+                    .css("color", "green");
+
+
+                $("#submitReviewBtn")
+                    .prop("disabled", true);
+
+                $("#rating")
+                    .prop("disabled", true);
+
+                $("#reviewTitle")
+                    .prop("disabled", true);
+
+                $("#review")
+                    .prop("disabled", true);
+
+                $("#reviewImage")
+                    .prop("disabled", true);
+
+
+                setTimeout(function () {
+
+                    window.location.href = "/profile/";
+
+                }, 1500);
+
+            },
+
+            error: function (xhr) {
+
+                console.log(
+                    "Review Error:",
+                    xhr.responseText
+                );
+
+
+                let message =
+                    "Unable to submit review.";
+
+
+                if (xhr.responseJSON) {
+
+                    if (xhr.responseJSON.message) {
+
+                        message =
+                            xhr.responseJSON.message;
+
+                    }
+                    else if (xhr.responseJSON.error) {
+
+                        message =
+                            xhr.responseJSON.error;
+
+                    }
+
+                }
+
+
+                $("#reviewMessage")
+                    .text(message)
+                    .css("color", "red");
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+{% endblock content %}

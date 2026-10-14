@@ -1,0 +1,2372 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Slider -->
+<section class="section-slide">
+	<div class="wrap-slick1">
+		<div class="slick1">
+			<div class="item-slick1" style="background-image: url({% static "images/women.jpg" %});">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+						<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+							<span class="ltext-101 cl2 respon2">
+								Women
+							</span>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+							<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+								Shop Women's New Arrivals
+							</h2>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+							<a href="/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="item-slick1" style="background-image: url({% static "images/men.jpg" %});">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+						<div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
+							<span class="ltext-101 cl2 respon2">
+								Men 
+							</span>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
+							<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+								Explore Men's Collection
+							</h2>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
+							<a href="/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="item-slick1" style="background-image: url({% static "images/occasion.jpg" %});">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+						<div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+							<span class="ltext-101 cl2 respon2">
+								occasion
+							</span>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+							<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+								Discover Occasion Wear
+							</h2>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+							<a href="/product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Product -->
+<section class="bg0 p-t-23 p-b-140">
+	<div class="container">
+		<div class="p-b-10">
+			<h3 class="ltext-103 cl5">
+				Product Overview
+			</h3>
+		</div>
+
+		<div class="flex-w flex-sb-m p-b-52">
+			<div class="flex-w flex-l-m filter-tope-group m-tb-10" id="category-list">
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1 select" data-category="">
+					All Products
+				</button>
+			</div>
+
+			<div class="flex-w flex-c-m m-tb-10">
+				<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+					<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+					<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+					Filter
+				</div>
+
+				<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+					<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+					<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+					Search
+				</div>
+			</div>
+
+			<!-- Search product -->
+			<div class="dis-none panel-search w-full p-t-10 p-b-15">
+				<div class="bor8 dis-flex p-l-15">
+					<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+						<i class="zmdi zmdi-search"></i>
+					</button>
+
+					<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" id="search"
+						placeholder="Search">
+				</div>
+			</div>
+
+			<!-- Filter -->
+			<div class="dis-none panel-filter w-full p-t-10">
+				<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm" id="filter">
+					<div class="filter-col1 p-r-15 p-b-27">
+						<div class="mtext-102 cl2 p-b-15">
+							Sort By
+						</div>
+
+						<ul>
+							<li class="p-b-6">
+								<a href="#" class="filter-link stext-106 trans-04 filter-link-active sort-filter"
+									data-sort="">
+									Default
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="#" class="filter-link stext-106 trans-04 sort-filter" data-sort="newest">
+									Newness
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="#" class="filter-link stext-106 trans-04 sort-filter" data-sort="asset">
+									Price: Low to High
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="#" class="filter-link stext-106 trans-04 sort-filter" data-sort="desset">
+									Price: High to Low
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="filter-col2 p-r-15 p-b-27">
+                        <div class="mtext-102 cl2 p-b-15">
+                            Price
+                        </div>
+
+                        <li class="p-b-6">
+                            <input type="number" id="custom-start-price" placeholder="Min Price" class="form-control" min="0">
+                        </li>
+
+                        <li class="p-b-6">
+                            <input type="number" id="custom-end-price" placeholder="Max Price" class="form-control" min="0">
+                        </li>
+
+                        <li class="p-b-6">
+                            <button type="button" id="custom-price-btn" class="btn btn-dark">
+                                Apply
+                            </button>
+                        </li>
+                    </div>
+
+					<div class="filter-col3 p-r-15 p-b-27">
+						<div class="mtext-102 cl2 p-b-15">
+							Subcategory
+						</div>
+
+						<ul id="subcategory-list">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Products -->
+		<div class="row grid" id="products">
+		</div>
+
+		<div
+            class="modal fade"
+            id="quickViewModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true">
+
+            <div
+                class="modal-dialog modal-xl modal-dialog-centered"
+                role="document"
+                style="max-width:1200px;">
+
+                <div
+                    class="modal-content"
+                    style="max-height:90vh; overflow-y:auto;">
+
+                    <!-- CLOSE BUTTON -->
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        style="
+                            position:absolute;
+                            right:15px;
+                            top:10px;
+                            z-index:999;
+                            font-size:30px;
+                            border:none;
+                            background:#fff;
+                            width:40px;
+                            height:40px;
+                            border-radius:50%;
+                        ">
+
+                        <span>&times;</span>
+
+                    </button>
+
+
+                    <!-- QUICK VIEW BODY -->
+                    <div class="bg0 p-t-60 p-b-30 p-lr-15-lg">
+                        <div class="row">
+
+                            <div class="col-md-6 col-lg-7 p-b-30">
+
+                                <div class="p-l-25 p-r-30 p-lr-0-lg">
+
+                                    <div class="quick-view-gallery" id="quickViewGalleryWrapper">
+
+                                        <!-- LEFT THUMBNAILS -->
+                                        <div class="quick-view-thumbs" id="quickViewThumbs"></div>
+
+                                        <!-- MAIN IMAGE -->
+                                        <div class="quick-view-main">
+
+                                            <div class="slick3 gallery-lb" id="quickViewSlider"></div>
+
+                                            <!-- LEFT / RIGHT ARROWS -->
+                                            <button type="button" class="quick-view-arrow quick-view-prev" id="quickViewPrev">
+                                                <i class="fa fa-angle-left"></i>
+                                            </button>
+
+                                            <button type="button" class="quick-view-arrow quick-view-next" id="quickViewNext">
+                                                <i class="fa fa-angle-right"></i>
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                RIGHT : PRODUCT INFORMATION
+                            ================================================== -->
+
+                            <div class="col-md-6 col-lg-5 p-b-30">
+
+                                <div class="p-r-50 p-t-5 p-lr-0-lg">
+
+
+                                    <!-- PRODUCT NAME -->
+
+                                    <h4
+                                        class="mtext-105 cl2 p-b-14"
+                                        id="quickViewName">
+                                    </h4>
+
+
+                                    <!-- PRODUCT PRICE -->
+
+                                    <span
+                                        class="mtext-106 cl2"
+                                        id="quickViewPrice">
+                                    </span>
+
+
+                                    <!-- SHORT DESCRIPTION -->
+
+                                    <p
+                                        class="stext-102 cl3 p-t-23"
+                                        id="quickViewShortDescription">
+                                    </p>
+
+
+                                    <!-- OPTIONS -->
+
+                                    <div class="p-t-33">
+
+
+                                        <!-- ==============================
+                                            SIZE
+                                        =============================== -->
+
+                                        <div
+                                            class="flex-w flex-r-m p-b-10">
+
+                                            <div
+                                                class="size-203 flex-c-m respon6">
+
+                                                Size
+
+                                            </div>
+
+
+                                            <div
+                                                class="size-204 respon6-next">
+
+                                                <div
+                                                    class="rs1-select2 bor8 bg0">
+
+                                                    <select
+                                                        class="js-select2"
+                                                        id="quickViewSize">
+
+                                                        <option value="">
+                                                            Choose an option
+                                                        </option>
+
+                                                    </select>
+
+                                                    <div class="dropDownSelect2"></div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ==============================
+                                            COLOR
+                                        =============================== -->
+
+                                        <div
+                                            class="flex-w flex-r-m p-b-10">
+
+                                            <div
+                                                class="size-203 flex-c-m respon6">
+
+                                                Color
+
+                                            </div>
+
+
+                                            <div
+                                                class="size-204 respon6-next">
+
+                                                <div
+                                                    class="flex-w"
+                                                    id="quickViewColors">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ==============================
+                                            QUANTITY
+                                        =============================== -->
+
+                                        <div
+                                            class="flex-w flex-r-m p-b-10">
+
+                                            <div
+                                                class="size-203 flex-c-m respon6">
+
+                                                Quantity
+
+                                            </div>
+
+
+                                            <div
+                                                class="size-204 flex-w flex-m respon6-next">
+
+                                                <div
+                                                    class="wrap-num-product flex-w m-r-20 m-tb-10">
+
+                                                    <div
+                                                        class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+
+                                                        <i
+                                                            class="fs-16 zmdi zmdi-minus">
+                                                        </i>
+
+                                                    </div>
+
+
+                                                    <input
+                                                        class="mtext-104 cl3 txt-center num-product"
+                                                        id="quickViewQuantity"
+                                                        type="number"
+                                                        value="1"
+                                                        min="1">
+
+
+                                                    <div
+                                                        class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+
+                                                        <i
+                                                            class="fs-16 zmdi zmdi-plus">
+                                                        </i>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ==============================
+                                            ADD TO CART
+                                        =============================== -->
+
+                                        <div
+                                            class="flex-w flex-r-m p-b-10">
+
+                                            <div class="size-203"></div>
+
+
+                                            <div
+                                                class="size-204 flex-w flex-m respon6-next">
+
+                                                <button
+                                                    type="button"
+                                                    id="quickViewAddCart"
+                                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+
+                                                    Add to cart
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ==============================
+                                            FULL PRODUCT
+                                        =============================== -->
+
+                                        <div
+                                            class="p-t-20 text-center">
+
+                                            <a
+                                                href="#"
+                                                id="quickViewDetails"
+                                                class="stext-101 cl2 hov-cl1 trans-04">
+
+                                                View Full Product Details
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+		<!-- Pagination -->
+		<div class="flex-l-m flex-w w-full p-t-10 m-lr--7 pagination">
+		</div>
+
+	</div>
+</section>
+
+<!-- QUICK VIEW MODAL -->
+{% comment %} <div
+	class="modal fade"
+	id="quickViewModal"
+	tabindex="-1"
+	role="dialog"
+	aria-hidden="true">
+
+	<div
+		class="modal-dialog modal-xl modal-dialog-centered"
+		role="document"
+		style="max-width:1200px;">
+
+		<div
+			class="modal-content"
+			style="max-height:90vh; overflow-y:auto;">
+
+			<!-- CLOSE -->
+			<button
+				type="button"
+				class="close"
+				data-dismiss="modal"
+				aria-label="Close"
+				style="
+					position:absolute;
+					right:15px;
+					top:10px;
+					z-index:999;
+					font-size:30px;
+					border:none;
+					background:#fff;
+					width:40px;
+					height:40px;
+					border-radius:50%;
+				">
+
+				<span>&times;</span>
+
+			</button>
+
+
+			<!-- QUICK VIEW CONTENT -->
+			<div id="quickViewContent">
+
+				<div class="text-center p-t-50 p-b-50">
+
+					<i class="fa fa-spinner fa-spin fa-2x"></i>
+
+					<p class="p-t-15">
+						Loading product...
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div> {% endcomment %}
+
+
+<script src="{% static "vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+
+
+    <script>
+
+		let category = "";
+		let subcategoryId = "";
+		let sort = "";
+		let startRange = "";
+		let endRange = "";
+
+		let quickViewVariants = [];
+		let quickViewRequestId = 0;
+
+		$(document).ready(function () {
+			
+			getCategories();
+			getSubcategories("");
+			getProducts(1);
+
+			// SEARCH
+			$("#search").keyup(function () {
+				getProducts(1);
+			});
+
+			// CATEGORY
+			$(document).on("click", ".select", function (e) {
+				e.preventDefault();
+
+				category = $(this).data("category");
+
+				if (category === "" || category === undefined) {
+					
+					category = "";
+					subcategoryId = "";
+					sort = "";
+					startRange = "";
+					endRange = "";
+
+					$("#search").val("");
+
+					$("#custom-start-price").val("");
+					$("#custom-end-price").val("");
+
+					$(".sort-filter").removeClass("filter-link-active");
+					$('.sort-filter[data-sort=""]').addClass("filter-link-active");
+
+					$(".select").removeClass("how-active1"); 
+					$(this).addClass("how-active1");
+
+					window.location.href = "";
+
+					getSubcategories("");
+					getProducts(1);
+
+					return;
+				}
+
+				subcategoryId = "";
+
+				$(".select").removeClass("how-active1");
+				$(this).addClass("how-active1");
+
+				getSubcategories(category);
+				getProducts(1);
+			});
+
+			// SUBCATEGORY
+			$(document).on("click", ".subcategory-filter", function (e) {
+				e.preventDefault();
+				
+				subcategoryId = $(this).data("subcategory-id");
+
+				$(".subcategory-filter").removeClass("filter-link-active");
+				$(this).addClass("filter-link-active");
+
+				getProducts(1);
+			});
+
+			// SORT
+			$(document).on("click", ".sort-filter", function (e) {
+				e.preventDefault();
+
+				sort = $(this).data("sort");
+
+				$(".sort-filter").removeClass("filter-link-active");
+				$(this).addClass("filter-link-active");
+
+				getProducts(1);
+			});
+
+			// PRICE
+			$(document).on("click", "#custom-price-btn", function (e) {
+				e.preventDefault();
+
+				let customStart = $("#custom-start-price").val();
+				let customEnd = $("#custom-end-price").val();
+
+				if (customStart === "") {
+					alert("Please enter minimum price.");
+					return;
+				}
+				if (customEnd === "") {
+					alert("Please enter maximum price.");
+					return;
+				}
+				if (isNaN(customStart) || isNaN(customEnd)) {
+					alert("Please enter valid price.");
+					return;
+				}
+				if (Number(customStart) < 0) {
+					alert("Minimum price cannot be negative.");
+					return;
+				}
+				if (Number(customStart) > Number(customEnd)) {
+					alert("Minimum price cannot be greater than maximum price.");
+					return;
+				}
+				startRange = customStart;
+				endRange = customEnd;
+
+				$(".price-filter").removeClass("filter-link-active");
+				getProducts(1);
+			});
+
+			// QUICK VIEW
+			$(document).on("click", ".quick-view-btn", function (e) {
+				e.preventDefault();
+
+				let productId = $(this).data("product-id");
+
+				$("#quickViewContent").html(`
+					<div class="text-center p-t-50 p-b-50">
+						<i class="fa fa-spinner fa-spin fa-2x"></i>
+
+						<p class="p-t-15">Loading product...</p>
+					</div>
+				`);
+
+				$("#quickViewModal").modal("show");
+				getQuickViewProduct(productId);
+			});
+		});
+
+		// Recalculate Quick View Slick after Bootstrap finishes opening the modal.
+		$(document).on("shown.bs.modal", "#quickViewModal", function () {
+			let slider = $("#quickViewSlider");
+
+			setTimeout(function () {
+				if (slider.length && slider.hasClass("slick-initialized")) {
+					slider.slick("setPosition");
+					$(window).trigger("resize");
+				}
+			}, 50);
+
+			setTimeout(function () {
+				if (slider.length && slider.hasClass("slick-initialized")) {
+					slider.slick("setPosition");
+				}
+			}, 350);
+		});
+
+		function initializeQuickViewSlider() {
+
+			let slider = $("#quickViewSlider");
+			let thumbs = $("#quickViewThumbs");
+
+			if (
+				!slider.length ||
+				!thumbs.length ||
+				!$.fn.slick
+			) {
+				return;
+			}
+
+			// Destroy old Slick first
+			if (slider.hasClass("slick-initialized")) {
+				slider.slick("unslick");
+			}
+
+			// Remove old thumbnails
+			thumbs.empty();
+
+			let slides = slider.find(".item-slick3");
+
+			if (slides.length == 0) {
+				return;
+			}
+
+			// Create thumbnails
+			slides.each(function (index) {
+
+				let image =
+					$(this).attr("data-thumb");
+
+				if (!image) {
+
+					image =
+						$(this)
+							.find("img")
+							.first()
+							.attr("src");
+
+				}
+
+				thumbs.append(`
+
+					<button
+						type="button"
+						class="quick-view-thumb ${index == 0 ? "active" : ""}"
+						data-slide="${index}">
+
+						<img
+							src="${image}"
+							alt="Product Image">
+
+					</button>
+
+				`);
+
+			});
+
+
+			// Initialize ONLY current product images
+			slider.slick({
+
+				slidesToShow: 1,
+
+				slidesToScroll: 1,
+
+				infinite: true,
+
+				fade: true,
+
+				arrows: false,
+
+				dots: false,
+
+				adaptiveHeight: false,
+
+				speed: 400
+
+			});
+
+
+			// Thumbnail click
+			thumbs
+				.off(
+					"click.quickThumb",
+					".quick-view-thumb"
+				)
+				.on(
+					"click.quickThumb",
+					".quick-view-thumb",
+					function () {
+
+						let index =
+							parseInt(
+								$(this).attr("data-slide")
+							);
+
+
+						slider.slick(
+							"slickGoTo",
+							index
+						);
+
+
+						thumbs
+							.find(".quick-view-thumb")
+							.removeClass("active");
+
+
+						$(this)
+							.addClass("active");
+
+					}
+				);
+
+
+			// Previous
+			$("#quickViewPrev")
+				.off("click.quickPrev")
+				.on(
+					"click.quickPrev",
+					function () {
+
+						if (
+							slider.hasClass(
+								"slick-initialized"
+							)
+						) {
+
+							slider.slick("slickPrev");
+
+						}
+
+					}
+				);
+
+
+			// Next
+			$("#quickViewNext")
+				.off("click.quickNext")
+				.on(
+					"click.quickNext",
+					function () {
+
+						if (
+							slider.hasClass(
+								"slick-initialized"
+							)
+						) {
+
+							slider.slick("slickNext");
+
+						}
+
+					}
+				);
+
+
+			// Change active thumbnail
+			slider
+				.off("afterChange.quickThumb")
+				.on(
+					"afterChange.quickThumb",
+					function (
+						event,
+						slick,
+						currentSlide
+					) {
+
+						let realIndex =
+							currentSlide % slides.length;
+
+
+						thumbs
+							.find(".quick-view-thumb")
+							.removeClass("active");
+
+
+						thumbs
+							.find(".quick-view-thumb")
+							.eq(realIndex)
+							.addClass("active");
+
+					}
+				);
+
+
+			// Fix size after images load
+			slider
+				.find("img")
+				.each(function () {
+
+					if (this.complete) {
+
+						setTimeout(function () {
+
+							if (
+								slider.hasClass(
+									"slick-initialized"
+								)
+							) {
+
+								slider.slick(
+									"setPosition"
+								);
+
+							}
+
+						}, 50);
+
+					}
+					else {
+
+						$(this).one(
+							"load",
+							function () {
+
+								if (
+									slider.hasClass(
+										"slick-initialized"
+									)
+								) {
+
+									slider.slick(
+										"setPosition"
+									);
+
+								}
+
+							}
+						);
+
+					}
+
+				});
+
+
+			// Initial position
+			slider.slick("setPosition");
+
+
+			setTimeout(function () {
+
+				if (
+					slider.hasClass(
+						"slick-initialized"
+					)
+				) {
+
+					slider.slick(
+						"setPosition"
+					);
+
+				}
+
+			}, 300);
+
+		}
+
+		function getQuickViewProduct(productId) {
+
+			// Create a unique request number
+			quickViewRequestId++;
+
+			let currentRequestId = quickViewRequestId;
+
+			// =====================================================
+			// CLEAR OLD QUICK VIEW DATA FIRST
+			// =====================================================
+
+			let slider = $("#quickViewSlider");
+			let thumbs = $("#quickViewThumbs");
+
+			// Destroy old Slick completely BEFORE adding new images
+			if (slider.hasClass("slick-initialized")) {
+				slider.slick("unslick");
+			}
+
+			// Remove old images
+			slider.empty();
+
+			// Remove old thumbnails
+			thumbs.empty();
+
+			// Remove old product data
+			quickViewVariants = [];
+
+			// Reset product information
+			$("#quickViewName").text("");
+			$("#quickViewPrice").text("");
+			$("#quickViewShortDescription").text("");
+
+			$("#quickViewSize").html(`
+				<option value="">Choose an option</option>
+			`);
+
+			$("#quickViewColors").empty();
+
+			$("#quickViewQuantity").val(1);
+
+			// Reset wishlist
+			$("#quickWishlistIcon")
+				.removeClass("zmdi-favorite")
+				.addClass("zmdi-favorite-outline");
+
+			$("#quickWishlistBtn").removeClass("active");
+
+
+			// =====================================================
+			// SHOW LOADING
+			// =====================================================
+
+			slider.html(`
+				<div class="quick-loading text-center p-t-50 p-b-50">
+					<i class="fa fa-spinner fa-spin fa-2x"></i>
+				</div>
+			`);
+
+
+			// =====================================================
+			// GET PRODUCT
+			// =====================================================
+
+			$.ajax({
+
+				url: "/getSingleProduct/?id=" + productId,
+
+				type: "GET",
+
+				success: function (response) {
+
+					// =================================================
+					// IMPORTANT:
+					// Ignore old AJAX response
+					// =================================================
+
+					if (currentRequestId !== quickViewRequestId) {
+						return;
+					}
+
+
+					// =================================================
+					// GET PRODUCT
+					// =================================================
+
+					let product = response.products;
+
+					if (!product) {
+						product = response.product;
+					}
+
+					if (!product) {
+						product = response;
+					}
+
+
+					console.log("Current Quick View Product:", product);
+
+
+					// =================================================
+					// GET IMAGES
+					// =================================================
+
+					let images = [];
+
+					if (product.image) {
+
+						images = product.image;
+
+					}
+					else if (product.images) {
+
+						images = product.images;
+
+					}
+
+
+					// Make sure images is always an array
+					if (!Array.isArray(images)) {
+
+						images = [images];
+
+					}
+
+
+					console.log(
+						"Images for product " + product.id + ":",
+						images
+					);
+
+
+					// =================================================
+					// GET VARIANTS
+					// =================================================
+
+					if (product.variant) {
+
+						quickViewVariants = product.variant;
+
+					}
+					else if (product.variants) {
+
+						quickViewVariants = product.variants;
+
+					}
+					else {
+
+						quickViewVariants = [];
+
+					}
+
+
+					console.log(
+						"Variants for product " + product.id + ":",
+						quickViewVariants
+					);
+
+
+					// =================================================
+					// PRODUCT NAME
+					// =================================================
+
+					$("#quickViewName")
+						.text(product.name || "");
+
+
+					// =================================================
+					// DESCRIPTION
+					// =================================================
+
+					$("#quickViewShortDescription")
+						.text(product.shortDescription || "");
+
+
+					// =================================================
+					// PRICE
+					// =================================================
+
+					let price = product.price;
+
+					if (
+						!price &&
+						quickViewVariants.length > 0
+					) {
+
+						price =
+							quickViewVariants[0].sellingPrice;
+
+					}
+
+
+					if (price) {
+
+						$("#quickViewPrice")
+							.html("&#8377;" + price);
+
+					}
+					else {
+
+						$("#quickViewPrice").text("");
+
+					}
+
+
+					// =================================================
+					// PRODUCT DETAILS LINK
+					// =================================================
+
+					$("#quickViewDetails")
+						.attr(
+							"href",
+							"/product-detail/" + product.id
+						);
+
+
+					// =================================================
+					// CREATE NEW IMAGE HTML
+					// =================================================
+
+					let imageHtml = "";
+					let imageCount = 0;
+
+
+					for (
+						let i = 0;
+						i < images.length;
+						i++
+					) {
+
+						let image = images[i];
+
+						let imageUrl = "";
+
+
+						// ---------------------------------------------
+						// IMAGE IS STRING
+						// ---------------------------------------------
+
+						if (
+							typeof image === "string"
+						) {
+
+							imageUrl = image;
+
+						}
+
+
+						// ---------------------------------------------
+						// IMAGE IS OBJECT
+						// ---------------------------------------------
+
+						else if (
+							image &&
+							typeof image === "object"
+						) {
+
+							if (
+								typeof image.image === "string"
+							) {
+
+								imageUrl = image.image;
+
+							}
+							else if (
+								image.image &&
+								image.image.url
+							) {
+
+								imageUrl =
+									image.image.url;
+
+							}
+							else if (
+								image.imageUrl
+							) {
+
+								imageUrl =
+									image.imageUrl;
+
+							}
+							else if (
+								image.url
+							) {
+
+								imageUrl =
+									image.url;
+
+							}
+
+						}
+
+
+						// Skip invalid image
+						if (!imageUrl) {
+							continue;
+						}
+
+
+						imageCount++;
+
+
+						imageHtml += `
+
+							<div
+								class="item-slick3"
+								data-thumb="${imageUrl}">
+
+								<div
+									class="wrap-pic-w pos-relative">
+
+									<img
+										src="${imageUrl}"
+										alt="${product.name || 'Product'}">
+
+
+									<!-- IMAGE BUTTONS -->
+
+									<div
+										style="
+											position:absolute;
+											top:15px;
+											right:15px;
+											display:flex;
+											flex-direction:column;
+											gap:10px;
+											z-index:10;
+										">
+
+
+										<!-- ZOOM -->
+
+										<a
+											class="
+												flex-c-m
+												bor0
+												fs-16
+												cl10
+												bg0
+												hov-btn3
+												trans-04
+											"
+											href="${imageUrl}"
+											style="
+												width:45px;
+												height:45px;
+												border-radius:50%;
+											">
+
+											<i class="fa fa-expand"></i>
+
+										</a>
+
+
+										<!-- WISHLIST -->
+
+										<button
+											type="button"
+											id="quickWishlistBtn"
+											class="
+												flex-c-m
+												bor0
+												fs-16
+												cl10
+												hov-btn2
+												trans-04
+											"
+											style="
+												width:45px;
+												height:45px;
+												border-radius:50%;
+												background:#fff;
+												border:none;
+												cursor:pointer;
+											">
+
+											<i
+												id="quickWishlistIcon"
+												class="
+													zmdi
+													zmdi-favorite-outline
+												"
+												style="font-size:20px;">
+											</i>
+
+										</button>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						`;
+
+					}
+
+
+					// =================================================
+					// NO IMAGE
+					// =================================================
+
+					if (imageCount === 0) {
+
+						imageHtml = `
+
+							<div
+								class="item-slick3"
+								data-thumb="{% static 'images/no-image.jpg' %}">
+
+								<div
+									class="wrap-pic-w pos-relative">
+
+									<img
+										src="{% static 'images/no-image.jpg' %}"
+										alt="No Image">
+
+								</div>
+
+							</div>
+
+						`;
+
+					}
+
+
+					// =================================================
+					// IMPORTANT:
+					// CLEAR AGAIN BEFORE INSERTING
+					// =================================================
+
+					if (slider.hasClass("slick-initialized")) {
+
+						slider.slick("unslick");
+
+					}
+
+					slider.empty();
+
+					thumbs.empty();
+
+
+					// =================================================
+					// INSERT ONLY CURRENT PRODUCT IMAGES
+					// =================================================
+
+					slider.html(imageHtml);
+
+
+					// =================================================
+					// INITIALIZE SLIDER
+					// =================================================
+
+					setTimeout(function () {
+
+						if (
+							currentRequestId !==
+							quickViewRequestId
+						) {
+							return;
+						}
+
+						initializeQuickViewSlider();
+
+					}, 100);
+
+
+					// =================================================
+					// SIZE
+					// =================================================
+
+					let sizeHtml = `
+						<option value="">
+							Choose an option
+						</option>
+					`;
+
+					let sizes = [];
+
+
+					for (
+						let i = 0;
+						i < quickViewVariants.length;
+						i++
+					) {
+
+						let size =
+							quickViewVariants[i].size;
+
+
+						if (
+							size &&
+							!sizes.includes(size)
+						) {
+
+							sizes.push(size);
+
+							sizeHtml += `
+
+								<option value="${size}">
+									${size}
+								</option>
+
+							`;
+
+						}
+
+					}
+
+
+					$("#quickViewSize")
+						.html(sizeHtml);
+
+
+					// =================================================
+					// COLOR
+					// =================================================
+
+					let colorHtml = "";
+					let colors = [];
+
+
+					for (
+						let i = 0;
+						i < quickViewVariants.length;
+						i++
+					) {
+
+						let color =
+							quickViewVariants[i].color;
+
+						let colorCode =
+							quickViewVariants[i].colorCode;
+
+
+						if (
+							color &&
+							!colors.includes(color)
+						) {
+
+							colors.push(color);
+
+
+							colorHtml += `
+
+								<label
+									style="
+										margin-right:15px;
+										margin-bottom:10px;
+										cursor:pointer;
+									">
+
+									<input
+										type="radio"
+										name="quickColor"
+										value="${color}"
+										class="quickProductColor"
+										style="display:none;">
+
+
+									<span
+										class="quick-color-option"
+										style="
+											display:flex;
+											align-items:center;
+											gap:7px;
+											border:1px solid #ddd;
+											border-radius:5px;
+											padding:6px 10px;
+										">
+
+										<span
+											style="
+												width:20px;
+												height:20px;
+												border-radius:50%;
+												background-color:${colorCode || color};
+												border:1px solid #999;
+												display:inline-block;
+											">
+										</span>
+
+										<span>
+											${color}
+										</span>
+
+									</span>
+
+								</label>
+
+							`;
+
+						}
+
+					}
+
+
+					$("#quickViewColors")
+						.html(colorHtml);
+
+
+					// =================================================
+					// SELECT2
+					// =================================================
+
+					if ($.fn.select2) {
+
+						if (
+							$("#quickViewSize").hasClass(
+								"select2-hidden-accessible"
+							)
+						) {
+
+							$("#quickViewSize")
+								.select2("destroy");
+
+						}
+
+
+						$("#quickViewSize").select2({
+
+							minimumResultsForSearch: 20,
+
+							dropdownParent:
+								$("#quickViewModal")
+
+						});
+
+					}
+
+
+					// =================================================
+					// WISHLIST CHECK
+					// =================================================
+
+					let token =
+						localStorage.getItem("token");
+
+
+					if (token) {
+
+						$.ajax({
+
+							url:
+								"/checkWishlist/" +
+								product.id +
+								"/",
+
+							type: "GET",
+
+							headers: {
+
+								"Authorization": token,
+
+								"X-CSRFToken":
+									"{{ csrf_token }}"
+
+							},
+
+							success: function (response) {
+
+								if (
+									currentRequestId !==
+									quickViewRequestId
+								) {
+									return;
+								}
+
+
+								if (
+									response.status == true
+								) {
+
+									$("#quickWishlistBtn")
+										.addClass("active");
+
+
+									$("#quickWishlistIcon")
+										.removeClass(
+											"zmdi-favorite-outline"
+										)
+										.addClass(
+											"zmdi-favorite"
+										);
+
+								}
+
+							}
+
+						});
+
+					}
+
+
+					// =================================================
+					// MAGNIFIC POPUP
+					// =================================================
+
+					if ($.fn.magnificPopup) {
+
+						$("#quickViewSlider")
+							.magnificPopup("destroy");
+
+
+						$("#quickViewSlider")
+							.magnificPopup({
+
+								delegate: "a",
+
+								type: "image",
+
+								gallery: {
+									enabled: true
+								}
+
+							});
+
+					}
+
+
+					// =================================================
+					// WISHLIST CLICK
+					// =================================================
+
+					$("#quickWishlistBtn")
+						.off("click.quickWishlist")
+						.on(
+							"click.quickWishlist",
+							function () {
+
+								let token =
+									localStorage.getItem("token");
+
+
+								if (!token) {
+
+									alert(
+										"Please login first."
+									);
+
+									window.location.href =
+										"/login/";
+
+									return;
+
+								}
+
+
+								$.ajax({
+
+									url: "/wishlistApi/",
+
+									type: "POST",
+
+									headers: {
+
+										"Authorization": token,
+
+										"X-CSRFToken":
+											"{{ csrf_token }}"
+
+									},
+
+									data: {
+
+										productId:
+											product.id
+
+									},
+
+									success: function (response) {
+
+										if (
+											response.status == true
+										) {
+
+											$("#quickWishlistBtn")
+												.addClass("active");
+
+
+											$("#quickWishlistIcon")
+												.removeClass(
+													"zmdi-favorite-outline"
+												)
+												.addClass(
+													"zmdi-favorite"
+												);
+
+										}
+										else {
+
+											$("#quickWishlistBtn")
+												.removeClass("active");
+
+
+											$("#quickWishlistIcon")
+												.removeClass(
+													"zmdi-favorite"
+												)
+												.addClass(
+													"zmdi-favorite-outline"
+												);
+
+										}
+
+
+										if (
+											typeof getWishlistCount ===
+											"function"
+										) {
+
+											getWishlistCount();
+
+										}
+
+									}
+
+								});
+
+							}
+						);
+
+
+					// =================================================
+					// QUANTITY
+					// =================================================
+
+					$("#quickViewModal")
+
+						.off(
+							"click.quickQuantity",
+							".btn-num-product-up"
+						)
+
+						.off(
+							"click.quickQuantity",
+							".btn-num-product-down"
+						)
+
+						.on(
+							"click.quickQuantity",
+							".btn-num-product-up",
+							function (e) {
+
+								e.preventDefault();
+
+								let quantity =
+									parseInt(
+										$("#quickViewQuantity").val()
+									) || 1;
+
+
+								$("#quickViewQuantity")
+									.val(quantity + 1);
+
+							}
+						)
+
+						.on(
+							"click.quickQuantity",
+							".btn-num-product-down",
+							function (e) {
+
+								e.preventDefault();
+
+								let quantity =
+									parseInt(
+										$("#quickViewQuantity").val()
+									) || 1;
+
+
+								if (quantity > 1) {
+
+									$("#quickViewQuantity")
+										.val(quantity - 1);
+
+								}
+								else {
+
+									$("#quickViewQuantity")
+										.val(1);
+
+								}
+
+							}
+						);
+
+
+					// =================================================
+					// ADD TO CART
+					// =================================================
+
+					$("#quickViewAddCart")
+						.off("click.quickCart")
+						.on(
+							"click.quickCart",
+							function () {
+
+								let token =
+									localStorage.getItem("token");
+
+
+								if (!token) {
+
+									alert(
+										"Please login to add product to cart."
+									);
+
+									window.location.href =
+										"/login/";
+
+									return;
+
+								}
+
+
+								let size =
+									$("#quickViewSize").val();
+
+
+								let color =
+									$(".quickProductColor:checked")
+										.val();
+
+
+								let quantity =
+									parseInt(
+										$("#quickViewQuantity").val()
+									);
+
+
+								if (!size) {
+
+									alert(
+										"Please select size."
+									);
+
+									return;
+
+								}
+
+
+								if (!color) {
+
+									alert(
+										"Please select color."
+									);
+
+									return;
+
+								}
+
+
+								if (
+									!quantity ||
+									quantity < 1
+								) {
+
+									alert(
+										"Please enter valid quantity."
+									);
+
+									return;
+
+								}
+
+
+								// Find variant
+								let selectedVariant = null;
+
+
+								for (
+									let i = 0;
+									i < quickViewVariants.length;
+									i++
+								) {
+
+									if (
+
+										quickViewVariants[i].size ==
+											size
+
+										&&
+
+										quickViewVariants[i].color ==
+											color
+
+									) {
+
+										selectedVariant =
+											quickViewVariants[i];
+
+										break;
+
+									}
+
+								}
+
+
+								if (!selectedVariant) {
+
+									alert(
+										"Selected size and color are not available."
+									);
+
+									return;
+
+								}
+
+
+								let stock =
+									selectedVariant.stockQuantity;
+
+
+								if (
+									quantity > stock
+								) {
+
+									alert(
+										"Only " +
+										stock +
+										" items available."
+									);
+
+									return;
+
+								}
+
+
+								// Add to cart
+								$.ajax({
+
+									url: "/addToCart/",
+
+									type: "POST",
+
+									headers: {
+
+										"Authorization": token,
+
+										"X-CSRFToken":
+											"{{ csrf_token }}"
+
+									},
+
+									data: {
+
+										variantId:
+											selectedVariant.id,
+
+										quantity:
+											quantity
+
+									},
+
+									success: function () {
+
+										if (
+											typeof getCartCount ===
+											"function"
+										) {
+
+											getCartCount();
+
+										}
+
+
+										$("#quickViewModal")
+											.modal("hide");
+
+
+										window.location.href =
+											"/shoping-cart/";
+
+									},
+
+									error: function (xhr) {
+
+										let message =
+											"Unable to add product to cart.";
+
+
+										if (
+											xhr.responseJSON
+										) {
+
+											if (
+												xhr.responseJSON.message
+											) {
+
+												message =
+													xhr.responseJSON.message;
+
+											}
+											else if (
+												xhr.responseJSON.error
+											) {
+
+												message =
+													xhr.responseJSON.error;
+
+											}
+
+										}
+
+
+										alert(message);
+
+									}
+
+								});
+
+							}
+						);
+
+				},
+
+				error: function (xhr) {
+
+					// Ignore old request
+					if (
+						currentRequestId !==
+						quickViewRequestId
+					) {
+						return;
+					}
+
+
+					console.log(
+						"Status:",
+						xhr.status
+					);
+
+
+					console.log(
+						"Response:",
+						xhr.responseText
+					);
+
+
+					$("#quickViewSlider").html(`
+
+						<div class="item-slick3">
+
+							<div class="wrap-pic-w pos-relative">
+
+								<img
+									src="{% static 'images/no-image.jpg' %}"
+									alt="No Image">
+
+							</div>
+
+						</div>
+
+					`);
+
+
+					$("#quickViewName")
+						.text("Unable to load product.");
+
+
+					$("#quickViewShortDescription")
+						.text(
+							"Error " + xhr.status
+						);
+
+				}
+
+			});
+
+		}
+
+
+		/* =========================================================
+		QUICK VIEW ERROR
+		========================================================= */
+
+		function showQuickViewError(message) {
+
+
+			$("#quickViewContent").html(`
+
+				<div
+					class="text-center p-t-50 p-b-50">
+
+					<h5
+						class="mtext-105 cl2">
+
+						Unable to load product.
+
+					</h5>
+
+					<p
+						class="stext-102 cl6 p-t-10">
+
+						${message}
+
+					</p>
+
+				</div>
+
+			`);
+
+		}
+		
+		function getCategories() {
+
+			$.ajax({
+				url: "/getCategory/",
+				type: "GET",
+
+				success: function (response) {
+
+					let html = `
+						<button type="button"
+							class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1 select"
+							data-category="">
+							All Products
+						</button>`;
+
+					for (let i = 0; i < response.categoryItem.length; i++) {
+
+						let item = response.categoryItem[i];
+
+						html += `
+							<button type="button"
+								class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 select"
+								data-category="${item.name}">
+								${item.name}
+							</button>`;
+					}
+					$("#category-list").html(html);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
+
+		function getSubcategories(category) {
+
+			$.ajax({
+				url: "/getSubCategory/",
+				type: "GET",
+				data: {
+					category: category
+				},
+
+				success: function (response) {
+
+					let html = `
+						<li class="p-b-6">
+							<a href="#" class="filter-link stext-106 trans-04 subcategory-filter filter-link-active" data-subcategory-id="">
+								All
+							</a>
+						</li>`;
+
+					for (let i = 0; i < response.categoryItem.length; i++) {
+
+						let item = response.categoryItem[i];
+
+						html += `
+							<li class="p-b-6">
+								<a href="#" class="filter-link stext-106 trans-04 subcategory-filter" data-subcategory-id="${item.id}">
+                                <img src="${item.image}" alt="" width="50" height="50">
+								${item.name}
+								</a>
+							</li>`;
+					}
+					$("#subcategory-list").html(html);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
+
+		function getProducts(page) {
+			let search = $("#search").val();
+
+			$.ajax({
+				url: "/getAllProducts/",
+				type: "GET",
+				data: {
+					page: page,
+					search: search,
+					category: category,
+					subcategoryId: subcategoryId,
+					sort: sort,
+					startRange: startRange,
+					endRange: endRange
+				},
+
+				success: function (response) {
+
+					let html = "";
+
+					for (let i = 0; i < response.products.length; i++) {
+						let product = response.products[i];
+
+						html += `
+							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35">
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+
+										<img src="${product.image}" alt="${product.name}" width="100" height="375">
+
+										<a href=""
+										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 quick-view-btn"
+										data-product-id="${product.id}"
+										data-toggle="modal"
+										data-target="#quickViewModal">
+
+											Quick View
+
+										</a>
+
+									</div>
+
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l">
+
+											<a href="/product-detail/${product.id}" class="stext-104 cl4 hov-cl1 trans-04 p-b-6">
+												${product.name}
+											</a>
+
+											<span class="stext-105 cl3">
+												${product.categoryName}
+											</span>
+
+											<span class="stext-105 cl3">
+												${product.shortDescription}
+											</span>
+
+											<span class="stext-105 cl3">
+												&#8377;${product.price}
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>`;
+					}
+					if (response.products.length == 0) {
+
+						html = `
+							<div class="col-12">
+								<p>No Products Found.</p>
+							</div>`;
+					}
+					$("#products").html(html);
+
+					// PAGINATION
+					let pagination = "";
+
+					if (response.previousPage) {
+
+						pagination += `
+							<a href="#" onclick="getProducts(${response.previousPage}); return false;" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								Prev
+							</a>`;
+					}
+
+					pagination += `
+						<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+							${response.currentPage}
+						</a>`;
+
+					if (response.nextPage) {
+
+						pagination += `
+							<a href="#" onclick="getProducts(${response.nextPage}); return false;" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								Next
+							</a>`;
+					}
+					$(".pagination").html(pagination);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
+	</script>
+{% endblock content %}

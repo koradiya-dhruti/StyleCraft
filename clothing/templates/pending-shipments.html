@@ -1,0 +1,275 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<div class="delivery-page">
+    <div class="delivery-sidebar">
+        <div class="delivery-sidebar-logo">
+            <a href="/delivery-dashboard/">
+                Style<span>Craft</span>
+            </a>
+        </div>
+
+        <div class="delivery-menu-title">
+            Delivery Portal
+        </div>
+
+        <ul class="delivery-sidebar-menu">
+            <li>
+                <a href="/delivery-dashboard/">
+                    <i class="zmdi zmdi-view-dashboard"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="/pending-shipments/">
+                    <i class="zmdi zmdi-time"></i>
+                    Pending Shipments
+                </a>
+            </li>
+
+            <li>
+                <a href="/my-shipments/">
+                    <i class="zmdi zmdi-truck"></i>
+                    My Shipments
+                </a>
+            </li>
+
+            <li>
+                <a href="/out-for-delivery/">
+                    <i class="zmdi zmdi-truck"></i>
+                    Out For Delivery
+                </a>
+            </li>
+
+            <li>
+                <a href="/delivered-shipments/">
+                    <i class="zmdi zmdi-check-circle"></i>
+                    Delivered
+                </a>
+            </li>
+
+            <li>
+                <a href="/exception-shipments/">
+                    <i class="zmdi zmdi-alert-circle"></i>
+                    Exceptions
+                </a>
+            </li>
+        </ul>
+
+        <div class="delivery-sidebar-bottom">
+            <ul class="delivery-sidebar-menu">
+                <li>
+                    <a class="delivery-logout" onclick="logout()">
+                        <i class="zmdi zmdi-power"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="delivery-main">
+        <div class="delivery-header">
+            <div class="delivery-page-title">
+                <h4>Pending Shipments</h4>
+                <p>Shipments waiting for pickup</p>
+            </div>
+
+            <div class="delivery-profile">
+                <div class="delivery-profile-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+
+                <div>
+                    <span class="delivery-profile-name" id="deliveryPartnerName">
+                        Delivery Partner
+                    </span>
+
+                    <span class="delivery-profile-role">
+                        Delivery Partner
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-content">
+            <div class="delivery-shipment-card">
+                <div class="delivery-shipment-header">
+                    <div>
+                        <h4>Pending Shipments</h4>
+                        <span>Shipments waiting for pickup</span>
+                    </div>
+
+                    <span id="shipmentTotal">0 Shipments</span>
+                </div>
+
+                <div class="delivery-table-responsive">
+                    <table class="delivery-table">
+                        <thead>
+                            <tr>
+                                <th>Shipment</th>
+                                <th>Order</th>
+                                <th>Shipping Date</th>
+                                <th>Estimated Delivery</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shipmentTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+<script>
+
+    $(document).ready(function () {
+        checkLogin();
+        loadPartner();
+        getShipments();
+    });
+
+    function checkLogin() {
+
+        let token = localStorage.getItem("deliveryToken");
+        if (!token) {
+            window.location.href = "/delivery-partner-login/";
+            return false;
+        }
+        return true;
+    }
+
+    function loadPartner() {
+
+        let partner = localStorage.getItem("deliveryPartner");
+        if (!partner) {
+            return;
+        }
+
+        try {
+            partner = JSON.parse(partner);
+            $("#deliveryPartnerName").text(
+                partner.firstName + " " + partner.lastName
+            );
+
+        } catch (error) {
+            console.log("Partner JSON error:", error);
+        }
+    }
+
+    function getShipments() {
+
+        let token = localStorage.getItem("deliveryToken");
+        if (!token) {
+            window.location.href = "/delivery-partner-login/";
+            return;
+        }
+
+        $.ajax({
+
+            url: "/getShipments/?status=1",
+            type: "GET",
+            headers: {
+                "Authorization": token,
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            success: function(response) {
+
+                let shipments = response.shipments || [];
+
+                console.log("Pending Shipments:", shipments);
+
+                $("#shipmentTable").html("");
+                $("#shipmentTotal").text(shipments.length + " Shipments");
+
+                if (shipments.length == 0) {
+                    $("#shipmentTable").html(`
+                        <tr>
+                            <td colspan="6" class="delivery-empty">
+                                No pending shipments found.
+                            </td>
+                        </tr>
+                    `);
+                    return;
+                }
+
+                for (let i = 0; i < shipments.length; i++) {
+                    let item = shipments[i];
+                    let row = `
+                        <tr>
+                            <td> ${item.shipmentId}</td>
+                            <td>${item.orderNumber}</td>
+                            <td>${item.shippingDate}</td>
+                            <td>${item.estimateDelivery}</td>
+                            <td>
+                                <button class="delivery-action-btn" onclick="changeStatus(${item.shipmentId}, 2)">
+                                    Pick Up
+                                </button>
+                            </td>
+                        </tr>`;
+                        
+                    $("#shipmentTable").append(row);
+                }
+                
+            },
+            
+            error: function(response) {
+                console.log("Get Shipments Error:", response);
+
+                if (response.responseJSON) {
+                    alert(response.responseJSON.message);
+
+                } else {
+                    alert("Unable to fetch shipments.");
+                }
+            }
+        });
+    }
+
+    function changeStatus(shipmentId, status) {
+
+        $.ajax({
+            url: "/changeStatus/",
+            type: "PUT",
+            headers: {
+                "Authorization": localStorage.getItem("deliveryToken"),
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            data: {
+                shipmentId: shipmentId,
+                status: status
+            },
+
+            success: function(response) {
+                alert("Order picked up successfully.")
+                getShipments();
+            },
+
+            error: function(xhr) {
+
+                let response = xhr.responseJSON;
+
+                if (response && response.message) {
+                    alert(response.message);
+                } else {
+                    alert("Something went wrong.");
+                }
+            }
+        });
+    }   
+
+    function logout() {
+
+        localStorage.removeItem("deliveryToken");
+        localStorage.removeItem("deliveryPartner");
+
+        window.location.href = "/delivery-partner-login/";
+    }
+
+</script>

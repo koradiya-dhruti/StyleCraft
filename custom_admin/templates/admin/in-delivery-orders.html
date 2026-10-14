@@ -1,0 +1,1183 @@
+{% load static%}
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+    data-template="vertical-menu-template-free">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>In Delivery Orders | StyleCraft</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static "admin/assets/img/favicon/favicon.ico" %}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{% static "admin/assets/vendor/fonts/boxicons.css" %}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static "admin/assets/vendor/css/core.css" %}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static "admin/assets/vendor/css/theme-default.css" %}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static "admin/assets/css/demo.css" %}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{% static "admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" %}" />
+
+    <link rel="stylesheet" href="{% static "admin/assets/vendor/libs/apex-charts/apex-charts.css" %}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{% static "admin/assets/vendor/js/helpers.js" %}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{% static "admin/assets/js/config.js" %}"></script>
+</head>
+
+<body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                <div class="app-brand demo">
+                    <a href="{% url 'custom_admin:adminIndex' %}"
+                    class="app-brand-link d-flex align-items-center">
+
+                        <!-- Logo Icon -->
+                        <span class="app-brand-logo demo">
+                            <i class="bx bxs-shopping-bags"
+                            style="font-size: 35px;
+                                    color: #696cff;">
+                            </i>
+                        </span>
+
+                        <!-- Brand Name -->
+                        <span class="app-brand-text demo menu-text fw-bolder ms-2"
+                            style="font-size: 24px;
+                                    letter-spacing: 0.5px;
+                                    color: #333333;">
+                            Style<span style="color: #696cff;">Craft</span>
+                        </span>
+
+                    </a>
+
+                    <!-- Mobile Menu Toggle -->
+                    <a href="javascript:void(0);"
+                    class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                    </a>
+                </div>
+
+                <div class="menu-inner-shadow"></div>
+
+                <ul class="menu-inner py-1">
+                    <!-- Dashboard -->
+                    <li class="menu-item">
+                        <a href="{% url "custom_admin:adminIndex" %}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Dashboard</div>
+                        </a>
+                    </li>
+
+                    <!-- Layouts -->
+                    <li class="menu-item">
+                        <a href="" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <div data-i18n="Layouts">Products</div>
+                        </a>
+
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="{% url "custom_admin:addNewProduct" %}" class="menu-link">
+                                <div data-i18n="Without menu">Add new Product</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{% url "custom_admin:viewProducts" %}" class="menu-link">
+                                <div data-i18n="Without navbar">View Products</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{% url "custom_admin:addNewProductVariant" %}" class="menu-link">
+                                <div data-i18n="Without navbar">Add New Product Variant</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                        <div data-i18n="Account Settings">Categories</div>
+                        </a>
+                        <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{% url "custom_admin:addNewCategory" %}" class="menu-link">
+                            <div data-i18n="Account">Add New Category</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url "custom_admin:viewCategory" %}" class="menu-link">
+                            <div data-i18n="Notifications">View Category</div>
+                            </a>
+                        </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div data-i18n="Account Settings">Stock Management</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="{% url "custom_admin:addNewStock" %}" class="menu-link">
+                                    <div data-i18n="Account">Add New Stock</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{% url "custom_admin:viewCurrentStock" %}" class="menu-link">
+                                    <div data-i18n="Notifications">View Current Stock</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item active">
+                        <a href="" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                        <div data-i18n="Misc">Orders</div>
+                        </a>
+                        <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{% url "custom_admin:currentOrders" %}" class="menu-link">
+                            <div data-i18n="Error">Current Orders</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url "custom_admin:inDeliveryOrders" %}" class="menu-link">
+                            <div data-i18n="Under Maintenance">In Delivery</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{% url "custom_admin:orderHistory" %}" class="menu-link">
+                            <div data-i18n="Under Maintenance">Order History</div>
+                            </a>
+                        </li>
+                        </ul>
+                    </li>
+                    <!-- User interface -->
+                    <li class="menu-item">
+                        <a href="" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-box"></i>
+                        <div data-i18n="User interface">Payments</div>
+                        </a>
+                        <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{% url "custom_admin:totalPayments" %}" class="menu-link">
+                            <div data-i18n="Accordion">Total Payments</div>
+                            </a>
+                        </li>
+                        </ul>
+                    </li>
+                    </ul>
+            </aside>
+            <!-- / Menu -->
+
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
+
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                            <i class="bx bx-menu bx-sm"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                        <!-- Search -->
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item dropdown">
+
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bx bx-search"></i>
+                                    </span>
+
+                                    <input type="text"
+                                        id="globalPageSearch"
+                                        class="form-control"
+                                        placeholder="Search pages..."
+                                        autocomplete="off">
+                                </div>
+
+                                <div id="globalSearchResults"
+                                    class="dropdown-menu w-100">
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /Search -->
+
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+                            <!-- User -->
+                            <div class="dropdown">
+                                <a href="#"
+                                    class="nav-link dropdown-toggle hide-arrow"
+                                    data-bs-toggle="dropdown">
+
+                                    <div class="avatar avatar-online">
+                                        <img id="navbarAvatar"
+                                            src=""
+                                            alt="Admin"
+                                            class="w-px-40 h-auto rounded-circle">
+                                    </div>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{% url 'custom_admin:adminProfile' %}">
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-online me-3">
+                                                    <img id="dropdownAvatar"
+                                                        src=""
+                                                        alt="Admin"
+                                                        class="w-px-40 h-auto rounded-circle">
+                                                </div>
+
+                                                <div>
+                                                    <span id="navbarAdminName"
+                                                            class="fw-semibold d-block">
+                                                        Loading...
+                                                    </span>
+
+                                                    <small id="navbarAdminEmail"
+                                                            class="text-muted">
+                                                        Loading...
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li><div class="dropdown-divider"></div></li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{% url 'custom_admin:adminProfile' %}">
+                                            <i class="bx bx-user me-2"></i> My Profile
+                                        </a>
+                                    </li>
+
+                                    <li><div class="dropdown-divider"></div></li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="#" id="adminLogout">
+                                            <i class="bx bx-power-off me-2"></i> Log Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--/ User -->
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- / Navbar -->
+
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+
+
+                        <!-- TITLE -->
+
+                        <div class="row">
+
+                            <div class="col-12">
+
+                                <h4 class="fw-bold py-3 mb-4">
+                                    Delivery Orders
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATISTICS -->
+
+                        <div class="row">
+
+
+                            <!-- Pending -->
+
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+
+                                <div class="card">
+
+                                    <div class="card-body">
+
+                                        <span class="fw-semibold d-block mb-1">
+                                            Pending
+                                        </span>
+
+                                        <h3
+                                            class="card-title mb-2"
+                                            id="pendingCount"
+                                        >
+                                            0
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Picked Up -->
+
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+
+                                <div class="card">
+
+                                    <div class="card-body">
+
+                                        <span class="fw-semibold d-block mb-1">
+                                            Picked Up
+                                        </span>
+
+                                        <h3
+                                            class="card-title mb-2"
+                                            id="pickedUpCount"
+                                        >
+                                            0
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Out For Delivery -->
+
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+
+                                <div class="card">
+
+                                    <div class="card-body">
+
+                                        <span class="fw-semibold d-block mb-1">
+                                            Out for Delivery
+                                        </span>
+
+                                        <h3
+                                            class="card-title mb-2"
+                                            id="outForDeliveryCount"
+                                        >
+                                            0
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Exception -->
+
+                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+
+                                <div class="card">
+
+                                    <div class="card-body">
+
+                                        <span class="fw-semibold d-block mb-1">
+                                            Exception / Delayed
+                                        </span>
+
+                                        <h3
+                                            class="card-title mb-2"
+                                            id="exceptionCount"
+                                        >
+                                            0
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- TABLE -->
+
+                        <div class="card">
+
+
+                            <div class="card-header">
+
+                                <!-- Page Title -->
+                                <div class="mb-3">
+                                    <h5 class="mb-0">Delivery Orders</h5>
+                                </div>
+
+                                <!-- Total Products, Search and Reset Filters -->
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+
+                                    <!-- Total Products - Left Side -->
+                                    <small id="totalShipmentsText" class="text-muted">
+                                        Total Shipments: 0
+                                    </small>
+
+                                    <!-- Search and Reset - Right Side -->
+                                    <div class="d-flex align-items-center gap-2 flex-wrap">
+
+                                        <!-- Search Bar -->
+                                        <div class="input-group" style="width: 315px;">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-search"></i>
+                                            </span>
+
+                                            <input
+                                                type="text"
+                                                id="searchShipments"
+                                                class="form-control"
+                                                placeholder="Search shipment, order, customer, partner..."
+                                                aria-label="Search shipment, order, customer, partner"
+                                            />
+                                        </div>
+
+                                        <!-- Reset Filters -->
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary btn-sm"
+                                            id="resetShipmentFilters"
+                                        >
+                                            <i class="bx bx-refresh"></i> Reset Filters
+                                        </button>
+
+                                    </div>
+
+                                </div>                                    
+
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Shipment
+                                                </th>
+
+                                                <th>
+                                                    Order
+                                                    <select id="sortShipments" class="form-select form-select-sm mt-1">
+                                                        <option value="newest">Newest First</option>
+                                                        <option value="oldest">Oldest First</option>
+                                                    </select>
+                                                </th>
+
+                                                <th>
+                                                    Customer
+                                                </th>
+
+                                                <th>
+                                                    Delivery Partner
+                                                    <select id="filterPartner" class="form-select form-select-sm mt-1">
+                                                        <option value="">All Delivery Partners</option>
+                                                        <option value="assigned">Assigned</option>
+                                                        <option value="unassigned">Not Assigned</option>
+                                                    </select>
+                                                </th>
+
+                                                <th>
+                                                    Shipment Date
+                                                </th>
+
+                                                <th>
+                                                    Estimated Delivery
+                                                </th>
+
+                                                <th>
+                                                    Status
+                                                    <select id="filterShipmentStatus" class="form-select form-select-sm mt-1">
+                                                        <option value="">All Shipment Status</option>
+                                                        <option value="1">Pending</option>
+                                                        <option value="2">Picked Up</option>
+                                                        <option value="3">Out for Delivery</option>
+                                                        <option value="5">Exception / Delayed</option>
+                                                    </select>
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="shipmentList">
+                                            <tr>
+                                                <td colspan="7" class="text-center">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                            <div class="d-flex align-items-center gap-2">
+                                                <label for="limitShipments" class="mb-0">Show</label>
+
+                                                <select id="limitShipments" class="form-select form-select-sm" style="width: 80px;">
+                                                    <option value="5">5</option>
+                                                    <option value="10" selected>10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="50">50</option>
+                                                </select>
+
+                                                <span>entries</span>
+                                                <small id="shipmentPageInfo" class="text-muted ms-2"></small>
+                                            </div>
+
+                                            <nav>
+                                                <ul class="pagination mb-0" id="shipmentPagination"></ul>
+                                            </nav>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{% static "admin/assets/vendor/libs/jquery/jquery.js" %}"></script>
+    <script src="{% static "admin/assets/vendor/libs/popper/popper.js" %}"></script>
+    <script src="{% static "admin/assets/vendor/js/bootstrap.js" %}"></script>
+    <script src="{% static "admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js" %}"></script>
+
+    <script src="{% static "admin/assets/vendor/js/menu.js" %}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="{% static "admin/assets/vendor/libs/apex-charts/apexcharts.js" %}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static "admin/assets/js/main.js" %}"></script>
+
+    <!-- Page JS -->
+    <script src="{% static "admin/assets/js/dashboards-analytics.js" %}"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            let currentPage = 1;
+
+            getDeliveryOrders();
+
+            let token = localStorage.getItem("token");
+
+            if (!token) {
+                window.location.replace(
+                    "{% url 'custom_admin:adminLogin' %}"
+                );
+                return;
+            }
+
+            $.ajax({
+                url: "{% url 'custom_admin:adminProfileApi' %}",
+                type: "GET",
+                headers: {
+                    "Authorization": token
+                },
+                success: function (response) {
+                    if (response.status !== "success") {
+                        localStorage.removeItem("token");
+                        window.location.replace(
+                            "{% url 'custom_admin:adminLogin' %}"
+                        );
+                        return;
+                    }
+
+                    let admin = response.admin;
+                    let image = admin.profile_image ||
+                        "{% static 'admin/assets/img/avatars/1.png' %}";
+
+                    $("#navbarAdminName").text(
+                        admin.user_name || "Admin"
+                    );
+
+                    $("#navbarAdminEmail").text(
+                        admin.email || ""
+                    );
+
+                    $("#navbarAvatar").attr("src", image);
+                    $("#dropdownAvatar").attr("src", image);
+                },
+                error: function () {
+                    localStorage.removeItem("token");
+                    window.location.replace(
+                        "{% url 'custom_admin:adminLogin' %}"
+                    );
+                }
+            });
+
+            $("#adminLogout").on("click", function (event) {
+                event.preventDefault();
+
+                let currentToken = localStorage.getItem("token");
+
+                if (!currentToken) {
+                    window.location.replace(
+                        "{% url 'custom_admin:adminLogin' %}"
+                    );
+                    return;
+                }
+
+                $.ajax({
+                    url: "{% url 'custom_admin:adminLogoutApi' %}",
+                    type: "POST",
+                    headers: {
+                        "Authorization": currentToken,
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    success: function (response) {
+                        if (response.status === "success") {
+                            localStorage.removeItem("token");
+
+                            // Replace the current history entry.
+                            window.location.replace(
+                                "{% url 'custom_admin:adminLogin' %}"
+                            );
+                        }
+                    },
+                    error: function () {
+                        alert(
+                            "Logout failed. Please check your connection."
+                        );
+                    }
+                });
+            });
+
+
+            function getDeliveryOrders() {
+
+                $("#shipmentList").html(`
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            Loading delivery orders...
+                        </td>
+                    </tr>
+                `);
+
+                $.ajax({
+
+                    url: "/custom-admin/api/get-delivery-orders/",
+                    type: "GET",
+
+                    data: {
+                        search: $("#searchShipments").val(),
+                        shipmentStatus: $("#filterShipmentStatus").val(),
+                        partner: $("#filterPartner").val(),
+                        sort: $("#sortShipments").val(),
+                        limit: $("#limitShipments").val(),
+                        page: currentPage
+                    },
+
+                    success: function (response) {
+
+                        console.log("Delivery orders response:", response);
+
+                        if (response.status !== true) {
+
+                            $("#shipmentList").html(`
+                                <tr>
+                                    <td colspan="7" class="text-center text-danger">
+                                        Unable to load delivery orders.
+                                    </td>
+                                </tr>
+                            `);
+
+                            return;
+                        }
+
+                        let shipments = response.shipments || [];
+                        let html = "";
+
+                        // UPDATE STATISTICS
+                        $("#pendingCount").text(response.pendingCount);
+                        $("#pickedUpCount").text(response.pickedUpCount);
+                        $("#outForDeliveryCount").text(response.outForDeliveryCount);
+                        $("#exceptionCount").text(response.exceptionCount);
+
+                        $("#totalShipmentsText").text(
+                            `Total Shipments: ${response.totalShipments}`
+                        );
+
+
+                        // NO RECORDS
+                        if (shipments.length === 0) {
+
+                            html = `
+                                <tr>
+                                    <td colspan="7" class="text-center">
+                                        No delivery orders found.
+                                    </td>
+                                </tr>
+                            `;
+
+                        } else {
+
+                            $.each(shipments, function (index, shipment) {
+
+                                // SHIPMENT STATUS
+                                let statusHtml = "";
+
+                                if (shipment.shipmentStatus == 1) {
+
+                                    statusHtml = `
+                                        <span class="badge bg-label-warning">
+                                            Pending
+                                        </span>
+                                    `;
+
+                                } else if (shipment.shipmentStatus == 2) {
+
+                                    statusHtml = `
+                                        <span class="badge bg-label-info">
+                                            Picked Up
+                                        </span>
+                                    `;
+
+                                } else if (shipment.shipmentStatus == 3) {
+
+                                    statusHtml = `
+                                        <span class="badge bg-label-primary">
+                                            Out for Delivery
+                                        </span>
+                                    `;
+
+                                } else if (shipment.shipmentStatus == 5) {
+
+                                    statusHtml = `
+                                        <span class="badge bg-label-danger">
+                                            Exception / Delayed
+                                        </span>
+                                    `;
+
+                                } else {
+
+                                    statusHtml = `
+                                        <span class="badge bg-label-secondary">
+                                            Unknown
+                                        </span>
+                                    `;
+
+                                }
+
+
+                                // DELIVERY PARTNER
+                                let deliveryPartnerHtml = "";
+
+                                if (shipment.deliveryPartnerName) {
+
+                                    deliveryPartnerHtml = `
+                                        <strong>${shipment.deliveryPartnerName}</strong>
+                                        <br>
+                                        <small class="text-muted">
+                                            ${shipment.deliveryPartnerMobile || ""}
+                                        </small>
+                                    `;
+
+                                } else {
+
+                                    deliveryPartnerHtml = `
+                                        <span class="badge bg-label-secondary">
+                                            Not Assigned
+                                        </span>
+                                    `;
+
+                                }
+
+
+                                // TABLE ROW
+                                html += `
+                                    <tr>
+
+                                        <td>
+                                            <strong>${shipment.shipmentId}</strong>
+                                        </td>
+
+                                        <td>
+                                            <strong>${shipment.orderNumber}</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                ₹${shipment.totalAmount}
+                                            </small>
+                                        </td>
+
+                                        <td>
+                                            <strong>${shipment.customerName}</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                ${shipment.customerPhone || ""}
+                                            </small>
+                                            <br>
+                                            <small class="text-muted">
+                                                ${shipment.customerEmail || ""}
+                                            </small>
+                                        </td>
+
+                                        <td>
+                                            ${deliveryPartnerHtml}
+                                        </td>
+
+                                        <td>
+                                            ${shipment.shippingDate || "-"}
+                                        </td>
+
+                                        <td>
+                                            ${shipment.estimateDelivery || "-"}
+                                        </td>
+
+                                        <td>
+                                            ${statusHtml}
+                                        </td>
+
+                                    </tr>
+                                `;
+
+                            });
+
+                        }
+
+                        $("#shipmentList").html(html);
+
+
+                        // PAGE INFORMATION
+                        let totalShipments = response.totalShipments;
+                        let limit = response.limit;
+                        let page = response.currentPage;
+
+                        let startRecord = 0;
+                        let endRecord = 0;
+
+                        if (totalShipments > 0) {
+                            startRecord = ((page - 1) * limit) + 1;
+                            endRecord = startRecord + shipments.length - 1;
+                        }
+
+                        $("#shipmentPageInfo").text(
+                            `Showing ${startRecord} to ${endRecord} of ${totalShipments} shipments`
+                        );
+
+
+                        // PAGINATION
+                        let paginationHtml = "";
+
+                        if (response.hasPrevious) {
+
+                            paginationHtml += `
+                                <li class="page-item">
+                                    <a href="#"
+                                    class="page-link shipment-page-link"
+                                    data-page="${response.previousPage}">
+                                        Previous
+                                    </a>
+                                </li>
+                            `;
+
+                        } else {
+
+                            paginationHtml += `
+                                <li class="page-item disabled">
+                                    <span class="page-link">Previous</span>
+                                </li>
+                            `;
+
+                        }
+
+
+                        for (let i = 1; i <= response.totalPages; i++) {
+
+                            paginationHtml += `
+                                <li class="page-item ${i == page ? "active" : ""}">
+                                    <a href="#"
+                                    class="page-link shipment-page-link"
+                                    data-page="${i}">
+                                        ${i}
+                                    </a>
+                                </li>
+                            `;
+
+                        }
+
+
+                        if (response.hasNext) {
+
+                            paginationHtml += `
+                                <li class="page-item">
+                                    <a href="#"
+                                    class="page-link shipment-page-link"
+                                    data-page="${response.nextPage}">
+                                        Next
+                                    </a>
+                                </li>
+                            `;
+
+                        } else {
+
+                            paginationHtml += `
+                                <li class="page-item disabled">
+                                    <span class="page-link">Next</span>
+                                </li>
+                            `;
+
+                        }
+
+                        $("#shipmentPagination").html(paginationHtml);
+
+                    },
+
+                    error: function (xhr) {
+
+                        console.log("Delivery orders error:", xhr.responseText);
+
+                        $("#shipmentList").html(`
+                            <tr>
+                                <td colspan="7" class="text-center text-danger">
+                                    Unable to load delivery orders.
+                                </td>
+                            </tr>
+                        `);
+
+                        $("#shipmentPagination").html("");
+                        $("#shipmentPageInfo").text("");
+
+                    }
+
+                });
+
+            }
+
+
+            // SEARCH
+            $("#searchShipments").on("input", function () {
+                currentPage = 1;
+                getDeliveryOrders();
+            });
+
+
+            // SHIPMENT STATUS FILTER
+            $("#filterShipmentStatus").on("change", function () {
+                currentPage = 1;
+                getDeliveryOrders();
+            });
+
+
+            // DELIVERY PARTNER FILTER
+            $("#filterPartner").on("change", function () {
+                currentPage = 1;
+                getDeliveryOrders();
+            });
+
+
+            // SORTING
+            $("#sortShipments").on("change", function () {
+                currentPage = 1;
+                getDeliveryOrders();
+            });
+
+
+            // RECORD LIMIT
+            $("#limitShipments").on("change", function () {
+                currentPage = 1;
+                getDeliveryOrders();
+            });
+
+
+            // RESET FILTERS
+            $("#resetShipmentFilters").on("click", function () {
+
+                $("#searchShipments").val("");
+                $("#filterShipmentStatus").val("");
+                $("#filterPartner").val("");
+                $("#sortShipments").val("newest");
+                $("#limitShipments").val("10");
+
+                currentPage = 1;
+
+                getDeliveryOrders();
+
+            });
+
+
+            // PAGINATION CLICK
+            $(document).on("click", ".shipment-page-link", function (e) {
+
+                e.preventDefault();
+
+                currentPage = parseInt($(this).data("page"), 10);
+
+                getDeliveryOrders();
+
+            });
+
+            let searchTimer;
+
+            $("#globalPageSearch").on("input", function () {
+
+                let search = $(this).val().trim();
+                let resultBox = $("#globalSearchResults");
+
+                clearTimeout(searchTimer);
+
+                if (search === "") {
+                    resultBox.removeClass("show").empty();
+                    return;
+                }
+
+                searchTimer = setTimeout(function () {
+
+                    $.ajax({
+                        url: "/custom-admin/api/global-page-search/",
+                        type: "GET",
+
+                        data: {
+                            q: search
+                        },
+
+                        success: function (response) {
+
+                            // Ignore outdated search responses.
+                            if ($("#globalPageSearch").val().trim() !== search) {
+                                return;
+                            }
+
+                            resultBox.empty();
+
+                            if (response.results.length === 0) {
+
+                                resultBox.append(
+                                    $("<span>")
+                                        .addClass("dropdown-item text-muted")
+                                        .text("No matching pages found")
+                                );
+
+                            } else {
+
+                                $.each(response.results, function (index, page) {
+
+                                    let link = $("<a>")
+                                        .addClass("dropdown-item d-flex align-items-center")
+                                        .attr("href", page.url);
+
+                                    let icon = $("<i>")
+                                        .addClass("bx " + page.icon + " me-2");
+
+                                    let name = $("<span>")
+                                        .text(page.name);
+
+                                    link.append(icon, name);
+                                    resultBox.append(link);
+
+                                });
+
+                            }
+
+                            resultBox.addClass("show");
+                        },
+
+                        error: function () {
+
+                            resultBox.empty().append(
+                                $("<span>")
+                                    .addClass("dropdown-item text-danger")
+                                    .text("Unable to search pages")
+                            );
+
+                            resultBox.addClass("show");
+                        }
+                    });
+
+                }, 250);
+            });
+
+            // Close search results when clicking outside.
+            $(document).on("click", function (event) {
+
+                if (!$(event.target).closest(
+                    "#globalPageSearch, #globalSearchResults"
+                ).length) {
+
+                    $("#globalSearchResults").removeClass("show");
+                }
+            });
+
+            // Escape key closes the results.
+            $("#globalPageSearch").on("keydown", function (event) {
+
+                if (event.key === "Escape") {
+                    $("#globalSearchResults").removeClass("show");
+                }
+
+                if (event.key === "Enter") {
+
+                    let firstResult = $("#globalSearchResults a").first();
+
+                    if (firstResult.length) {
+                        window.location.href = firstResult.attr("href");
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

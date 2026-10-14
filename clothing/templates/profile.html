@@ -1,0 +1,804 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!--Title-->
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static "images/bg-01.jpg" %}');">
+    <h2 class="ltext-105 cl0 txt-center">
+        My Profile
+    </h2>
+</section>
+
+<!-- Profile Page -->
+<div class="container-fluid py-3">
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <button type="button"
+                    class="profile-tab flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04"
+                    id="myProfileBtn">
+                    My Profile
+                </button>
+
+                <button type="button"
+                    class="profile-tab flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04"
+                    id="myOrdersBtn">
+                    My Orders
+                </button>
+
+                <button type="button"
+                    class="profile-tab flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04"
+                    id="myAddressesBtn">
+                    My Addresses
+                </button>
+
+                <button type="button"
+                    class="profile-tab flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04"
+                    id="orderHistoryBtn">
+                    Order History
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profileView">
+        <div class="row align-items-start">
+            <div class="col-md-4 p-4">
+                <div class="border p-2">
+                    <img id="ProfileImage" src="" class="img-fluid w-100" alt="Profile Image">
+                </div>
+            </div>
+
+            <div class="col-md-8 p-4">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="FirstName"disabled>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="LastName" disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label"> Email</label>
+                        <input type="email" class="form-control" id="Email" disabled>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="Phone" disabled>
+                    </div>
+                </div>
+
+                <p id="profileMessage"></p>
+
+                <div class="d-flex gap-3 mt-3">
+                    <button type="button" class="flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04 m-tb-5 px-4" id="edit-btn">
+                        Edit
+                    </button>
+
+                    <button type="button" class="flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04 m-tb-5 px-4" id="save-btn" style="display:none;">
+                        Save
+                    </button>
+
+                    <button type="button" class="flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04 m-tb-5 px-4" id="logout-btn">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myOrdersSection" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">My Orders</h4>
+                        <div id="myOrders"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myAddressesSection" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">My Addresses</h4>
+                        <div id="myAddresses"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderHistorySection" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Order History</h4>
+                        <div id="orderHistory"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static "vendor/jquery/jquery-3.2.1.min.js" %}"></script>
+
+<script>
+    $(document).ready(function () {
+        let token = localStorage.getItem("token");
+        
+        if (!token) {
+            window.location.href = "/register/";
+            return;
+        }
+
+        function setActiveButton(buttonId) {
+            $(".profile-tab").removeClass("active");
+            $("#" + buttonId).addClass("active");
+        }
+
+        function showProfile() {
+            $("#profileView").show();
+
+            $("#myOrdersSection").hide();
+            $("#myAddressesSection").hide();
+            $("#orderHistorySection").hide();
+
+            let userData = localStorage.getItem("user");
+            if (!userData) {
+                window.location.href = "/register/";
+                return;
+            }
+
+            let user = JSON.parse(userData);
+
+            $("#FirstName").val(user.firstName);
+            $("#LastName").val(user.lastName);
+            $("#Email").val(user.email);
+            $("#Phone").val(user.dialCode + " " + user.phoneNumber);
+
+            if (user.profileImage) {
+                $("#ProfileImage").attr("src", user.profileImage);
+            }
+        }
+
+        $("#myProfileBtn").click(function () {
+            showProfile();
+            setActiveButton("myProfileBtn");
+        });
+
+        showProfile();
+        setActiveButton("myProfileBtn");
+
+        $("#myOrdersBtn").click(function () {
+            setActiveButton("myOrdersBtn");
+            $("#profileView").hide();
+
+            $("#myOrdersSection").show();
+
+            $("#myAddressesSection").hide();
+            $("#orderHistorySection").hide();
+            let token = localStorage.getItem("token");
+
+            $.ajax({
+
+                url: "/getCurrentOrders/",
+                type: "GET",
+                headers: {
+                    "Authorization": token
+                },
+
+                success: function (response) {
+                    let orders = response.orders || [];
+
+                    $("#myOrders").empty();
+                    if (orders.length === 0) {
+                        $("#myOrders").html(`<p class="stext-111 cl6">No orders found.</p>`);
+                        return;
+                    }
+
+                    for (let i = 0; i < orders.length; i++) {
+
+                        let order = orders[i];
+                        let itemsHtml = "";
+
+                        for (let j = 0; j < order.items.length; j++) {
+                            let item = order.items[j];
+
+                            itemsHtml += `
+                                <div class="bor8 p-all-15 m-b-10">
+
+                                    <h6 class="mtext-106 cl2">${item.productName}</h6>
+
+                                    <p class="stext-111 cl6">Color: ${item.color} | Size: ${item.size}</p>
+
+                                    <p class="stext-111 cl6">Quantity: ${item.quantity}</p>
+
+                                    <p class="stext-111 cl6">Price: ₹${item.sellingPrice.toFixed(2)}</p>
+
+                                    <p class="stext-111 cl6">Total: ₹${item.total.toFixed(2)}</p>
+
+                                </div>`;
+                        }
+
+                        $("#myOrders").append(`
+
+                            <div class="bor8 p-all-20 m-b-20">
+                                <div class="flex-w flex-sb-m p-b-15">
+                                    <div>
+                                        <h5 class="mtext-105 cl2">Order ${order.orderNumber}</h5>
+                                        <span class="stext-111 cl6">${order.placedAt}</span>
+                                    </div>
+
+                                    <div>
+                                        <span class="stext-102 cl2">₹${Number(order.totalAmount).toFixed(2)}</span>
+                                    </div>
+
+                                </div>
+
+                                <p class="stext-111 cl6 p-b-15">
+                                    Status:
+                                    <strong>${order.orderStatusName}</strong>
+                                </p>
+                                ${itemsHtml}
+                            </div>
+                        `);
+                    }
+                },
+
+                error: function (xhr) {
+
+                    console.log(xhr.responseText);
+
+                    $("#myOrders").html(`
+                        <p class="stext-111 cl6">
+                            Unable to load orders.
+                        </p>
+                    `);
+                }
+            });
+        });
+
+        $("#myAddressesBtn").click(function () {
+
+            setActiveButton("myAddressesBtn");
+
+            $("#profileView").hide();
+
+            $("#myOrdersSection").hide();
+            $("#orderHistorySection").hide();
+
+            $("#myAddressesSection").show();
+
+            /*$("#myAddresses").html(`
+                <div class="text-center py-4">
+                    Loading addresses...
+                </div>
+            `);*/
+
+
+            let token = localStorage.getItem("token");
+
+
+            $.ajax({
+
+                url: "/getAddresses/",
+
+                type: "GET",
+
+                headers: {
+                    "Authorization": token
+                },
+
+                success: function (response) {
+
+                    console.log("Address Response:", response);
+
+
+                    $("#myAddresses").empty();
+
+
+                    // YOUR API RETURNS "address"
+                    let addresses = response.address || [];
+
+
+                    if (addresses.length === 0) {
+
+                        $("#myAddresses").html(`
+
+                            <div class="text-center py-5">
+
+                                <h5>
+                                    No Address Found
+                                </h5>
+
+                                <p class="text-muted">
+                                    You have not added any address yet.
+                                </p>
+
+                            </div>
+
+                        `);
+
+                        return;
+                    }
+
+
+                    // Loop addresses
+                    for (let i = 0; i < addresses.length; i++) {
+
+                        let address = addresses[i];
+
+
+                        $("#myAddresses").append(`
+
+                            <div class="card mb-3">
+
+                                <div class="card-body">
+
+                                    <div class="d-flex
+                                                justify-content-between
+                                                align-items-center">
+
+                                        <h5 class="mb-3">
+
+                                            ${address.addresstype}
+
+                                        </h5>
+
+                                    </div>
+
+
+                                    <h6>
+
+                                        ${address.fullName}
+
+                                    </h6>
+
+
+                                    <p class="mb-1">
+
+                                        ${address.addressLine1}
+
+                                    </p>
+
+
+                                    ${address.addressLine2 ? `
+
+                                        <p class="mb-1">
+
+                                            ${address.addressLine2}
+
+                                        </p>
+
+                                    ` : ""}
+
+
+                                    <p class="mb-1">
+
+                                        ${address.city},
+                                        ${address.state},
+                                        ${address.country}
+                                        -
+                                        ${address.postalCode}
+
+                                    </p>
+
+
+                                    ${address.landmark ? `
+
+                                        <p class="mb-1">
+
+                                            Landmark:
+                                            ${address.landmark}
+
+                                        </p>
+
+                                    ` : ""}
+
+
+                                    <p class="mb-0 text-muted">
+
+                                        Phone:
+                                        ${address.dialCode}
+                                        ${address.phoneNumber}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        `);
+
+                    }
+
+                },
+
+                error: function (xhr) {
+
+                    console.log(
+                        "Address Error:",
+                        xhr.responseText
+                    );
+
+
+                    $("#myAddresses").html(`
+
+                        <div class="alert alert-danger">
+
+                            Unable to load addresses.
+
+                        </div>
+
+                    `);
+
+                }
+
+            });
+
+        });
+
+        $(document).on("click", ".download-invoice-btn", function () {
+
+            var orderId = $(this).data("order-id");
+
+            window.location.href = "/invoice/" + orderId + "/";
+
+        });
+
+
+        $("#orderHistoryBtn").click(function () {
+
+            setActiveButton("orderHistoryBtn");
+
+            $("#profileView").hide();
+
+            $("#myOrdersSection").hide();
+            $("#myAddressesSection").hide();
+
+            $("#orderHistorySection").show();
+
+            /*$("#orderHistory").html(`
+
+                <div class="text-center py-4">
+
+                    Loading order history...
+
+                </div>
+
+            `);*/
+
+
+            let token = localStorage.getItem("token");
+
+
+            $.ajax({
+
+                url: "/getMyOrders/",
+
+                type: "GET",
+
+                headers: {
+                    "Authorization": token
+                },
+
+                success: function (response) {
+
+                    console.log("History Response:", response);
+
+
+                    $("#orderHistory").empty();
+
+
+                    let orders = response.orders || [];
+
+
+                    if (orders.length === 0) {
+
+                        $("#orderHistory").html(`
+
+                            <div class="text-center py-5">
+
+                                <h5>
+                                    No Order History
+                                </h5>
+
+                                <p class="text-muted">
+
+                                    You have no orders yet.
+
+                                </p>
+
+                            </div>
+
+                        `);
+
+                        return;
+                    }
+
+
+                    // Show all orders
+                    for (let i = 0; i < orders.length; i++) {
+
+                        let order = orders[i];
+
+                        let itemsHtml = "";
+
+
+                        for (let j = 0; j < order.items.length; j++) {
+
+                            let item = order.items[j];
+                            
+
+                            itemsHtml += `
+
+                                <div class="card mb-3">
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+
+                                            <div class="col-md-8">
+
+                                                <h5>
+                                                    ${item.productName}
+                                                </h5>
+
+                                                <p class="text-muted mb-1">
+                                                    Color: ${item.color || "-"}
+                                                </p>
+
+                                                <p class="text-muted mb-1">
+                                                    Size: ${item.size || "-"}
+                                                </p>
+
+                                                <p class="text-muted mb-1">
+                                                    Quantity: ${item.quantity}
+                                                </p>
+
+                                                <p class="text-muted mb-1">
+                                                    Price: ₹${Number(item.sellingPrice).toFixed(2)}
+                                                </p>
+
+                                            </div>
+
+                                            <div class="col-md-4 text-md-end">
+
+                                                <strong>
+                                                    ₹${Number(item.total).toFixed(2)}
+                                                </strong>
+
+                                                <br><br>
+
+                                                <button
+                                                    class="download-invoice-btn btn btn-dark rounded-pill px-4"
+                                                    data-order-id="${order.id}">
+                                                    Download Invoice
+                                                </button>
+
+                                                <a href="/feedback/${order.id}/${item.id}" class="btn btn-dark rounded-pill px-4">
+                                                    Feedback
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+
+
+
+                        $("#orderHistory").append(`
+
+                            <div class="card mb-4">
+
+                                <div class="card-header bg-white">
+
+                                    <div class="row">
+
+                                        <div class="col-md-8">
+
+                                            <h5 class="mb-1">
+
+                                                Order ${order.orderNumber}
+
+                                            </h5>
+
+
+                                            <small class="text-muted">
+
+                                                ${order.placedAt}
+
+                                            </small>
+
+                                        </div>
+
+
+                                        <div class="col-md-4 text-md-end">
+
+                                            <strong>
+
+                                                ₹${Number(order.totalAmount).toFixed(2)}
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="card-body">
+
+                                    ${itemsHtml}
+
+                                </div>
+
+                            </div>
+
+                        `);
+
+                    }
+
+                },
+
+                error: function (xhr) {
+
+                    console.log(
+                        "History Error:",
+                        xhr.responseText
+                    );
+
+
+                    $("#orderHistory").html(`
+
+                        <div class="alert alert-danger">
+
+                            Unable to load order history.
+
+                        </div>
+
+                    `);
+
+                }
+
+            });
+
+        });
+
+        // edit 
+        $("#edit-btn").click(function () {
+
+            $("#FirstName").prop("disabled", false);
+            $("#LastName").prop("disabled", false);
+            $("#Email").prop("disabled", false);
+            $("#Phone").prop("disabled", false);
+
+            $("#edit-btn").hide();
+            $("#save-btn").show();
+
+            $("#profileMessage")
+                .text("You can now edit your information.")
+                .css("color", "#717fe0");
+        });
+
+        // save
+        $("#save-btn").click(function () {
+
+            let firstName = $("#FirstName").val().trim();
+            let lastName = $("#LastName").val().trim();
+            let email = $("#Email").val().trim();
+
+            let phone = $("#Phone").val().trim();
+
+            let phoneParts = phone.split(" ");
+
+            let dialCode = phoneParts[0];
+            let phoneNumber = phoneParts[1];
+
+            if (!firstName || !lastName || !email || !phoneNumber) {
+                $("#profileMessage").text("Please fill all required fields.").css("color", "red");
+                return;
+            }
+
+            let userData = localStorage.getItem("user");
+            let user = JSON.parse(userData);
+
+            $.ajax({
+
+                url: "/api/updateProfile/",
+                type: "PUT",
+                headers: {
+                    "Authorization": token,
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    dialCode: dialCode,
+                    phoneNumber: phoneNumber
+                },
+
+                success: function (response) {
+
+                    console.log("UPDATE RESPONSE:", response);
+
+                    user.firstName = firstName;
+                    user.lastName = lastName;
+                    user.email = email;
+                    user.dialCode = dialCode;
+                    user.phoneNumber = phoneNumber;
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(user)
+                    );
+
+                    $("#FirstName").prop("disabled", true);
+                    $("#LastName").prop("disabled", true);
+                    $("#Email").prop("disabled", true);
+                    $("#Phone").prop("disabled", true);
+
+                    $("#edit-btn").show();
+                    $("#save-btn").hide();
+
+                    $("#profileMessage")
+                        .text(response.message)
+                        .css("color", "green");
+                },
+
+                error: function (xhr) {
+
+                    console.log("UPDATE ERROR:", xhr.responseText);
+                    console.log("STATUS:", xhr.status);
+
+                    let message = "Profile update failed.";
+
+                    if (xhr.responseJSON) {
+
+                        if (xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        else if (xhr.responseJSON.error) {
+                            message = xhr.responseJSON.error;
+                        }
+                    }
+
+                    $("#profileMessage")
+                        .text(message)
+                        .css("color", "red");
+                }
+            });
+
+        });
+
+        // logout
+        $("#logout-btn").click(function () {
+            localStorage.removeItem("token");
+            window.location.href = "/";
+        });
+    });
+</script>
+
+{% endblock content %}
